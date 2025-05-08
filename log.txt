@@ -1,0 +1,3 @@
+# Bugs
+1.Seems like siliconflow is not compatible with camel. the camel.types.enums don't provide the token limit about the siliconflow type.
+2.Camel don't support stream response
