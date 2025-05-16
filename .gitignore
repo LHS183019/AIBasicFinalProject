@@ -1,3 +1,5 @@
 siliconflow_api_key.txt
 .env
 test*
+ignore
+__pycache__
