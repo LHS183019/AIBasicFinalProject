@@ -312,12 +312,31 @@ class ReflexUIManagerState(rx.State):
                 self.ui_manager.show_error_info(Exception("Selected model API or handler not available."))
                 self.processing = False; yield; return
 
+            # Prepare message history for the LLM
+            messages_for_llm = []
+            # Add system prompt if desired/configured (optional, depends on model)
+            # messages_for_llm.append({"role": "system", "content": "You are a helpful assistant."})
+            
+            # Add past messages from the current chat
+            for qa_pair in self._chats.get(self.current_chat, []):
+                if qa_pair.get("question"): # Ensure question exists
+                    messages_for_llm.append({"role": "user", "content": qa_pair["question"]})
+                if qa_pair.get("answer"): # Ensure answer exists and is not empty
+                    messages_for_llm.append({"role": "assistant", "content": qa_pair["answer"]})
+            
+            # The last message in messages_for_llm will be the user's current question,
+            # as it was added to self._chats[self.current_chat] right before this try block,
+            # but its "answer" field is empty.
+            # Some models might expect the last message to be the user's prompt without an assistant reply yet.
+            # Ensure the `ask_LLM` method in model_API.py handles this correctly.
+            # Typically, the list ends with the latest user query.
+
             # LLM Call
             response_stream = await rx.call_blocking(
                 current_model_api.ask_LLM,
-                query=question,
+                messages=messages_for_llm, # Pass the full message history
                 model_type=model_type_enum,
-                api_key=api_key_to_use # Pass the key to ask_LLM
+                api_key=api_key_to_use
             )
             
             # Handle Response Stream
@@ -414,7 +433,7 @@ class ReflexUIManager(UIManager):
         # this gets more complex. For now, assume it's a direct state update.
         self.state.update_last_message_answer(output)
         # If current_llm_output is used for *only* streaming part, update it here too.
-        # self.state.current_llm_output += output # Or set it if it's the full stream part
+        self.state.current_llm_output += output # Append for live streaming display
 
     def display_img_output(self):
         """Display image output (placeholder)."""

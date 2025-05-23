@@ -65,9 +65,9 @@ class ModelAPIInterface(ABC):
         pass
     
     @abstractmethod
-    def ask_LLM(self, query: str, model_type: ModelType, response_format:Union[BaseModel,None], api_key: str = None, enable_reasoning:bool=True):
+    def ask_LLM(self, messages: List[Dict[str, str]], model_type: ModelType, response_format:Union[BaseModel,None], api_key: str = None, enable_reasoning:bool=True):
         """
-        Sends a query to the language model and returns the response.
+        Sends a list of messages to the language model and returns the response.
         Accepts an optional api_key to use for this specific call.
         If the model_type is not supported, raises a ValueError.
         """
@@ -114,33 +114,37 @@ class SiliconflowModelAPI(ModelAPIInterface):
         raise ValueError("Client could not be initialized.")
 
 
-    def ask_LLM(self, query: str, model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
+    def ask_LLM(self, messages: List[Dict[str, str]], model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
         """
-        Sends a query to the specified Siliconflow language model and returns the response.
+        Sends a list of messages to the specified Siliconflow language model and returns the response.
         Uses the provided api_key for this call, or the one set during initialization.
         If the model_type is not supported, raises a ValueError.
         """
         client_to_use = self._get_client_with_key(api_key_override=api_key)
-        if not client_to_use: # Should be caught by _get_client_with_key
+        if not client_to_use:
              raise ValueError("SiliconFlow API client not available.")
 
+        # The 'messages' parameter is now passed directly
+        # Ensure it's a list of dicts with "role" and "content" keys
+        if not isinstance(messages, list) or not all(isinstance(m, dict) and "role" in m and "content" in m for m in messages):
+            raise ValueError("The 'messages' argument must be a list of dictionaries, each with 'role' and 'content'.")
+
         response = None
-        message = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {'role': 'user', 'content': query}
-        ]
         try:
+            # Add a system prompt if not already present and if it's standard practice for this model
+            # For now, assuming messages list is complete as prepared by ReflexUIManagerState
+            
             if model_type == ModelType.SILICONFLOW_DEEPSEEK_R1:
                 response = client_to_use.chat.completions.create(
                     model='Pro/deepseek-ai/DeepSeek-R1',
-                    messages=message,
+                    messages=messages, # Use the passed messages list
                     stream=True,
                     max_tokens=16384
                 )
             elif model_type == ModelType.SILICONFLOW_QWEN3_30B_A3B:
                 response = client_to_use.chat.completions.create(
                     model='Qwen/Qwen3-30B-A3B',
-                    messages=message,
+                    messages=messages, # Use the passed messages list
                     stream=True,
                     max_tokens=8192,
                 )
@@ -211,9 +215,9 @@ class GeminiModelAPI(ModelAPIInterface):
             
         raise ValueError("Gemini client could not be initialized.")
 
-    def ask_LLM(self, query: str, model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
+    def ask_LLM(self, messages: List[Dict[str, str]], model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
         """
-        Sends a query to the specified Gemini language model and returns the response.
+        Sends a list of messages to the specified Gemini language model and returns the response.
         Uses the provided api_key for this call, or the one set during initialization.
         If the model_type is not supported, raises a ValueError.
         """
@@ -221,17 +225,18 @@ class GeminiModelAPI(ModelAPIInterface):
         if not client_to_use:
             raise ValueError("Gemini API client not available.")
 
+        if not isinstance(messages, list) or not all(isinstance(m, dict) and "role" in m and "content" in m for m in messages):
+            raise ValueError("The 'messages' argument must be a list of dictionaries, each with 'role' and 'content'.")
+
         response = None
-        message = [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {'role': 'user', 'content': query}
-        ]
         try:
+            # Add a system prompt if not already present and if it's standard practice for this model
+            # For now, assuming messages list is complete as prepared by ReflexUIManagerState
+
             if model_type == ModelType.GEMINI_FLASH_2_0:
                 response = client_to_use.chat.completions.create(
-                    model='gemini-2.5-flash-preview-04-17', # Note: The enum value is gemini-2.0-flash, but API might use specific preview. This should be consistent.
-                                                           # Using the string from ModelType enum value directly is safer: model=model_type.value
-                    messages=message,
+                    model=model_type.value, # Use the enum's value directly for consistency
+                    messages=messages, # Use the passed messages list
                     stream=True,
                     # NOTE: Gemini API via OpenAI proxy might not support 'reasoning_effort'
                     # This seems to be a Google AI Studio specific parameter.

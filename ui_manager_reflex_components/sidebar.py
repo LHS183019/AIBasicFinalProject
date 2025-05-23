@@ -27,8 +27,20 @@ def sidebar_chat_item(chat_name: str) -> rx.Component:
         ),
         width="100%",
         padding_x="0.5em",
-        # Highlight if current chat
-        bg=rx.cond(ReflexUIManagerState.current_chat == chat_name, "lightblue", "transparent"),
+        border_radius="md", # Add consistent border radius
+        # Highlight if current chat, using theme-aware colors
+        bg=rx.cond(
+            ReflexUIManagerState.current_chat == chat_name, 
+            rx.color("accent", 3), # Active chat background
+            "transparent"
+        ),
+        _hover={ # Hover effect for non-active chats
+            "background_color": rx.cond(
+                ReflexUIManagerState.current_chat == chat_name,
+                rx.color("accent", 4), # Slightly darker for active chat hover
+                rx.color("mauve", 3)  # Hover color for inactive chats
+            )
+        }
     )
 
 def chat_management_sidebar(trigger: rx.Component) -> rx.Component:

@@ -20,7 +20,7 @@ def app_navbar() -> rx.Component:
         # Display current chat name
         rx.badge(
             ReflexUIManagerState.current_chat,
-            color_scheme="blue",
+            color_scheme="accent", # Use accent color for consistency
             variant="solid",
             size="2",
             padding_x="1em",
@@ -52,10 +52,10 @@ def app_navbar() -> rx.Component:
         justify_content="space-between", # Ensure items are spaced out
         padding_x="1em",
         padding_y="0.5em",
-        border_bottom="1px solid #ddd",
+        border_bottom=f"1px solid {rx.color('mauve', 5)}", # Theme-aware border
         width="100%",
         position="sticky", # Make navbar sticky
         top="0",
-        z_index="100", # Ensure it's above other content
-        bg="white", # Background for the navbar
+        z_index="1000", # Ensure it's above other content, increased z-index
+        bg=rx.theme_var("colors.panel_solid"), # Theme-aware background
     )

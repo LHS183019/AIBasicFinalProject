@@ -36,9 +36,11 @@ def chat_input_bar() -> rx.Component:
             ),
             align_items="center",
             width="100%",
+            spacing="3", # Add spacing between input and buttons
         ),
         on_submit=ReflexUIManagerState.process_question, # Correct handler for form
         width="100%",
+        padding="0.5em", # Add padding to the form container
         # Prevent form submission from reloading the page (Reflex handles state)
         # This is typically default behavior in Reflex when on_submit is a State method.
         # If issues arise, add: on_submit=lambda data: ReflexUIManagerState.process_question(data)
