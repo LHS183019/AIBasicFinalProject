@@ -65,9 +65,10 @@ class ModelAPIInterface(ABC):
         pass
     
     @abstractmethod
-    def ask_LLM(self, query: str, model_type: ModelType, response_format:Union[BaseModel,None], enable_reasoning:bool=True):
+    def ask_LLM(self, query: str, model_type: ModelType, response_format:Union[BaseModel,None], api_key: str = None, enable_reasoning:bool=True):
         """
         Sends a query to the language model and returns the response.
+        Accepts an optional api_key to use for this specific call.
         If the model_type is not supported, raises a ValueError.
         """
         pass
@@ -75,51 +76,83 @@ class ModelAPIInterface(ABC):
 
 
 class SiliconflowModelAPI(ModelAPIInterface):
-    def __init__(self,api_key):
+    def __init__(self, api_key: str = None):
         super().__init__()
-        self._client = OpenAI(api_key=api_key, base_url="https://api.siliconflow.cn/v1")
+        self._api_key = api_key # Store the initial API key
+        self._client = None
+        if api_key:
+            self._client = OpenAI(api_key=api_key, base_url="https://api.siliconflow.cn/v1")
         
-        """
-        Initializes the SiliconflowModelAPI with the provided API key.
-        """
     @property
     def client(self):
         """
         Returns the client object for Siliconflow API.
+        Initializes client on first access if an API key is available.
         """
+        if self._client is None and self._api_key:
+            self._client = OpenAI(api_key=self._api_key, base_url="https://api.siliconflow.cn/v1")
         return self._client
-    
-    def ask_LLM(self,query:str,model_type:ModelType,response_format:Union[BaseModel,None]=None) -> Union[Iterable,None]:
+
+    def _get_client_with_key(self, api_key_override: str = None) -> OpenAI:
+        """
+        Gets an OpenAI client instance. Uses api_key_override if provided,
+        otherwise uses self._api_key. Initializes client if necessary.
+        Raises ValueError if no API key is available.
+        """
+        key_to_use = api_key_override or self._api_key
+        if not key_to_use:
+            raise ValueError("SiliconFlow API key not provided for ask_LLM call and not set during initialization.")
+        
+        # If overriding key, or if client not initialized with the instance key
+        if api_key_override and api_key_override != self._api_key:
+            return OpenAI(api_key=api_key_override, base_url="https://api.siliconflow.cn/v1")
+        
+        if self.client: # Access via property to ensure it's initialized if self._api_key was present
+             return self.client
+        
+        # This case should ideally be caught by the key_to_use check, but as a fallback:
+        raise ValueError("Client could not be initialized.")
+
+
+    def ask_LLM(self, query: str, model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
         """
         Sends a query to the specified Siliconflow language model and returns the response.
+        Uses the provided api_key for this call, or the one set during initialization.
         If the model_type is not supported, raises a ValueError.
         """
+        client_to_use = self._get_client_with_key(api_key_override=api_key)
+        if not client_to_use: # Should be caught by _get_client_with_key
+             raise ValueError("SiliconFlow API client not available.")
+
         response = None
         message = [
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {'role': 'user', 
-                    'content': query}
-                ]
+            {"role": "system", "content": "You are a helpful assistant."},
+            {'role': 'user', 'content': query}
+        ]
         try:
             if model_type == ModelType.SILICONFLOW_DEEPSEEK_R1:
-                response = self.client.chat.completions.create(
+                response = client_to_use.chat.completions.create(
                     model='Pro/deepseek-ai/DeepSeek-R1',
                     messages=message,
-                    stream = True,
+                    stream=True,
                     max_tokens=16384
                 )
             elif model_type == ModelType.SILICONFLOW_QWEN3_30B_A3B:
-                response = self.client.chat.completions.create(
+                response = client_to_use.chat.completions.create(
                     model='Qwen/Qwen3-30B-A3B',
                     messages=message,
-                    stream = True,
+                    stream=True,
                     max_tokens=8192,
                 )
             else:
-                raise ValueError(f"Unknown model type {model_type}.")
+                # Check if it's any other SiliconFlow model, e.g. VLM, though this method is ask_LLM
+                if "SILICONFLOW" in model_type.name:
+                     raise ValueError(f"Unsupported SiliconFlow LLM model type: {model_type.value}")
+                else:
+                     raise ValueError(f"Model type {model_type.value} is not a SiliconFlow model.")
             return response
         except Exception as e:
-            raise RuntimeError(f"Error during requesting the LLM server: {str(e)}")
+            raise RuntimeError(f"Error during requesting the SiliconFlow LLM server: {str(e)}")
     
     def ask_VLM(self,query:str,image_ref:List[Dict[str,str]],model_type:ModelType) -> Union[Iterable,None]:
         """
@@ -143,43 +176,75 @@ class GeminiModelAPI(ModelAPIInterface):
     Args:
         ModelAPIInterface (_type_): _description_
     """
-    def __init__(self,api_key):
+    def __init__(self, api_key: str = None):
         super().__init__()
-        self._client = OpenAI(api_key=api_key, 
-                                base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+        self._api_key = api_key # Store the initial API key
+        self._client = None
+        if api_key:
+            self._client = OpenAI(api_key=api_key, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
 
     @property
     def client(self):
         """
         Returns the client object for Gemini API.
+        Initializes client on first access if an API key is available.
         """
+        if self._client is None and self._api_key:
+            self._client = OpenAI(api_key=self._api_key, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
         return self._client
-                    
 
-    def ask_LLM(self,query:str,model_type:ModelType,response_format:Union[BaseModel,None]=None) -> Union[Iterable,None]:
+    def _get_client_with_key(self, api_key_override: str = None) -> OpenAI:
+        """
+        Gets an OpenAI client instance for Gemini. Uses api_key_override if provided,
+        otherwise uses self._api_key. Initializes client if necessary.
+        Raises ValueError if no API key is available.
+        """
+        key_to_use = api_key_override or self._api_key
+        if not key_to_use:
+            raise ValueError("Gemini API key not provided for ask_LLM call and not set during initialization.")
+
+        if api_key_override and api_key_override != self._api_key:
+            return OpenAI(api_key=api_key_override, base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+        
+        if self.client: # Access via property
+            return self.client
+            
+        raise ValueError("Gemini client could not be initialized.")
+
+    def ask_LLM(self, query: str, model_type: ModelType, response_format: Union[BaseModel, None] = None, api_key: str = None, enable_reasoning: bool = True) -> Union[Iterable, None]:
         """
         Sends a query to the specified Gemini language model and returns the response.
+        Uses the provided api_key for this call, or the one set during initialization.
         If the model_type is not supported, raises a ValueError.
         """
+        client_to_use = self._get_client_with_key(api_key_override=api_key)
+        if not client_to_use:
+            raise ValueError("Gemini API client not available.")
+
         response = None
         message = [
-                    {"role": "system", "content": "You are a helpful assistant."},
-                    {'role': 'user', 
-                    'content': query}
-                ]
+            {"role": "system", "content": "You are a helpful assistant."},
+            {'role': 'user', 'content': query}
+        ]
         try:
             if model_type == ModelType.GEMINI_FLASH_2_0:
-                    response = self.client.chat.completions.create(
-                    model = 'gemini-2.5-flash-preview-04-17',
+                response = client_to_use.chat.completions.create(
+                    model='gemini-2.5-flash-preview-04-17', # Note: The enum value is gemini-2.0-flash, but API might use specific preview. This should be consistent.
+                                                           # Using the string from ModelType enum value directly is safer: model=model_type.value
                     messages=message,
                     stream=True,
-                    # NOTE: adding attribute 'reasoning_effort="none"' to prohibit reasoning 
+                    # NOTE: Gemini API via OpenAI proxy might not support 'reasoning_effort'
+                    # This seems to be a Google AI Studio specific parameter.
+                    # For OpenAI API compatibility, such custom params are usually not available.
                 )
             else:
-                raise ValueError(f"Unknown model type {model_type}.")
+                if "GEMINI" in model_type.name:
+                    raise ValueError(f"Unsupported Gemini LLM model type: {model_type.value}")
+                else:
+                    raise ValueError(f"Model type {model_type.value} is not a Gemini model.")
             return response
         except Exception as e:
-            raise RuntimeError(f"Error during requesting the LLM server: {str(e)}")
+            raise RuntimeError(f"Error during requesting the Gemini LLM server: {str(e)}")
 
 
     def ask_VALM(self,query:str,image_ref:List[Dict[str,str]],audio_ref:List[Dict[str,str]],model_type:ModelType) -> Union[Iterable,None]:

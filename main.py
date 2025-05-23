@@ -1,8 +1,10 @@
-from model_API import ModelType,SiliconflowModelAPI,GeminiModelAPI
-from model_response_handler import SiliconflowModelResponseHandler
-from ui_manager import CLIManager,ReflexUIManager
+# from model_API import ModelType,SiliconflowModelAPI,GeminiModelAPI # Keep for potential future use or direct model calls if needed
+# from model_response_handler import SiliconflowModelResponseHandler # Keep for potential future use
+# from ui_manager import CLIManager # Keep for potential future use
 from dotenv import load_dotenv
 import os
+import reflex as rx
+from ui_manager import ReflexUIManager, reflex_chat_app_page
 
 
 """
@@ -20,27 +22,60 @@ TODO: 未来
 """
 
 
-# HACK: 只是一个临时的CLI，UI有待完善
 if __name__ == "__main__":
     load_dotenv()
-    GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+    
+    # Retrieve API keys
+    # GEMINI_API_KEY = os.getenv("GEMINI_API_KEY") # Keep for future use if manager is updated
     SILICONFLOW_API_KEY = os.getenv("SILICONFLOW_API_KEY")
     
-    UI = CLIManager()
-    handler = SiliconflowModelResponseHandler()
+    # Instantiate ReflexUIManager
+    # The constructor no longer takes API key arguments directly.
+    # API keys will be set via the UI and stored in ReflexUIManagerState.
+    manager = ReflexUIManager()
     
-    UI.show_enter_info()
-    while True:
-        try:
-            user_input = UI.get_user_input()
-            if user_input: # 若输入非空
-                LLM = SiliconflowModelAPI(api_key=SILICONFLOW_API_KEY)
-                response = LLM.ask_LLM(user_input,ModelType.SILICONFLOW_DEEPSEEK_R1)
-                handler.handle_text_response(response,UI,show_reasoning=True)
-        except EOFError:
-            # 捕获Ctrl+Z（或Ctrl+D）输入
-            UI.show_exit_info()
-            break
-        except Exception as e:
-            UI.show_error_info(e)
-            break
+    # Define the Reflex App
+    app = rx.App(
+        theme=rx.theme(
+            appearance="dark", 
+            accent_color="purple",
+            # You can add more theme customizations here if needed
+            # E.g., panel_background="solid", radius="large"
+        )
+    )
+    
+    # Add the main chat page, passing the manager instance
+    # The reflex_chat_app_page function should use this manager's state
+    app.add_page(
+        reflex_chat_app_page(manager), 
+        title="Reflex Chat App" # Optional: Set a title for the browser tab
+    )
+    
+    # Compile the app
+    # Note: `reflex run` typically handles compilation and serving.
+    # Calling app.compile() here is usually for specific build scenarios.
+    # For development, you'd run `reflex init` then `reflex run` from the terminal.
+    # If this script is intended to be the *entry point* for `reflex run`,
+    # then this structure is correct. `reflex run` will import this `app` object.
+    app.compile()
+
+    # Comment out or remove the old CLI logic:
+    # UI = CLIManager()
+    # handler = SiliconflowModelResponseHandler()
+    # 
+    # UI.show_enter_info()
+    # while True:
+    #     try:
+    #         user_input = UI.get_user_input()
+    #         if user_input: # 若输入非空
+    #             # Example of using Siliconflow API directly (now handled by ReflexUIManager)
+    #             # LLM = SiliconflowModelAPI(api_key=SILICONFLOW_API_KEY)
+    #             # response = LLM.ask_LLM(user_input,ModelType.SILICONFLOW_DEEPSEEK_R1)
+    #             # handler.handle_text_response(response,UI,show_reasoning=True)
+    #             pass # Placeholder for new logic if any non-Reflex startup needed
+    #     except EOFError:
+    #         UI.show_exit_info()
+    #         break
+    #     except Exception as e:
+    #         UI.show_error_info(e)
+    #         break
