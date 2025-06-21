@@ -1,0 +1,3 @@
+.env 的encoding make sure as utf-8
+
+live streaming works as shit for me
