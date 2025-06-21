@@ -14,13 +14,16 @@
 
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.agents import Agent
-from google.adk.models.lite_llm import LiteLlm # For multi-model support
-from google.adk.sessions import InMemorySessionService
-from google.adk.runners import Runner
-from google.genai import types # For creating message Content/Parts
+from google.adk.planners import BuiltInPlanner
+import os
 
-MODEL_DEEPSEEK_R1 = "deepseek-ai/DeepSeek-R1"
-MODEL_CLAUDE_SONNET = "anthropic/claude-sonnet-4-20250514"
+# NOTE: R1非常慢，可能因为要思考
+
+BASE_URL = "https://api.siliconflow.cn/v1"
+MODEL_DEEPSEEK_R1 = "openai/deepseek-ai/DeepSeek-R1"
+MODEL_DEEPSEEK_V3 = "openai/deepseek-ai/DeepSeek-V3"
+SILICONFLOW_API_KEY = os.getenv("SILICONFLOW_API_KEY")
+
 
 # @title Define the get_weather Tool
 def get_weather(city: str) -> dict:
@@ -53,7 +56,11 @@ def get_weather(city: str) -> dict:
 root_agent = Agent(
         name="weather_agent_claude",
         # Key change: Wrap the LiteLLM model identifier
-        model=LiteLlm(model=MODEL_CLAUDE_SONNET),
+        model=LiteLlm(
+            model=MODEL_DEEPSEEK_R1,
+            api_key=SILICONFLOW_API_KEY,
+            api_base=BASE_URL
+            ),
         description="Provides weather information (using Claude Sonnet).",
         instruction="You are a helpful weather assistant powered by Claude Sonnet. "
                     "Use the 'get_weather' tool for city weather requests. "

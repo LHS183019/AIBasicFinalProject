@@ -3,8 +3,6 @@ from google.adk.tools import load_artifacts
 from google.adk.tools import ToolContext
 from google.genai import Client
 from google.genai import types
-from PIL import Image
-from io import BytesIO
 
 client = Client()
     

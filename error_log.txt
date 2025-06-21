@@ -1,0 +1,10 @@
+.env 的encoding make sure as utf-8
+live streaming works don't work for me
+litellm seems don't support vlm(?)
+
+for me, the initiation of gemini-fullstack:
+    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+    mingw32-make install
+    mingw32-make dev
+
+https://docs.astral.sh/uv/getting-started/installation/#standalone-installer

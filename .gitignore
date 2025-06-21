@@ -3,3 +3,5 @@ siliconflow_api_key.txt
 test*
 ignore
 __pycache__
+
+node_modules

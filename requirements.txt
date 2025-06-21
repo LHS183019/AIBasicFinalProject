@@ -1,7 +1,2 @@
-keyboard==0.13.5
-openai==1.78.1
-protobuf==6.31.0
-pydantic==2.11.4
-python-dotenv==1.1.0
-reflex==0.7.11
-typing_extensions==4.13.2
+google-adk
+litellm

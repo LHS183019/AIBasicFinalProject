@@ -1,7 +1,5 @@
 import asyncio
 from google.adk.agents import LlmAgent
-from google.adk.runners import Runner
-from google.adk.sessions import InMemorySessionService
 from google.adk.code_executors import BuiltInCodeExecutor
 from google.genai import types
 
