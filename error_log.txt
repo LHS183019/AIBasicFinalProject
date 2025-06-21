@@ -1,5 +1,5 @@
 .env 的encoding make sure as utf-8
-live streaming works don't work for me
+live streaming don't work for me
 litellm seems don't support vlm(?)
 
 for me, the initiation of gemini-fullstack:
