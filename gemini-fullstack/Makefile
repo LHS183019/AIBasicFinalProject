@@ -10,9 +10,7 @@ dev-backend:
 	uv run adk api_server app --allow_origins="*"
 
 dev-frontend:
-	cd frontend
 	npm run dev
-	cd ..
 
 playground:
 	uv run adk web --port 8501
