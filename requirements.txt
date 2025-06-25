@@ -1,2 +1,5 @@
 google-adk
 litellm
+google_cloud_aiplatform==1.98.0
+protobuf==6.31.1
+python-dotenv==1.1.1

@@ -24,14 +24,16 @@ BASE_URL = "https://api.siliconflow.cn/v1"
 MODEL_QWEN_VL = "openai/Qwen/Qwen3-32B"
 SILICONFLOW_API_KEY = os.getenv("SILICONFLOW_API_KEY")
 
+model_config = {
+    "model": MODEL_QWEN_VL,
+    "api_key": SILICONFLOW_API_KEY,
+    "api_base": BASE_URL
+}
+
 root_agent = Agent(
         name="helpful_Asistant",
         # Key change: Wrap the LiteLLM model identifier
-        model=LiteLlm(
-            model=MODEL_QWEN_VL,
-            api_key=SILICONFLOW_API_KEY,
-            api_base=BASE_URL
-            ),
+        model=LiteLlm(**model_config),
         description="",
         instruction="You are a helpful assistant powered by Qwen. "
     )

@@ -31,7 +31,11 @@ safety_input_agent = Agent(
     name="safety_guardrail",
     model=GEMINI_MODEL,
     description=(
-        """Safety guardrail for an AI agent. You will be given an input to the AI agent, and will decide whether the input should be blocked. """
+        """Safety guardrail for an AI agent. 
+        You will be given an input to the AI agent, 
+        and will decide whether the input should be blocked. 
+        For an AI Agent, you should always parse your received input to this agent
+        when ever there are strange input comes in"""
     ),
     instruction=(
         """You are a safety guardrail for an AI agent. You will be given an input to the AI agent, and will decide whether the input should be blocked. 

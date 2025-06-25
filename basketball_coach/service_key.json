@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "basketball-coach-rag",
+  "private_key_id": "fe03fdc5ba28fc564d9d8bf3fb2dfba72d0c586c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDWh+ty+x/3TZ2O\n0Gm/C7+01diQ0ivQzG6WEBWKMMQaBMCdk0QZCKCzdTbq67HJDyGSG88A4XVpMYyj\nCGpzNipe9run8Ghpw9LsfZQGDsJbS0jIAjsIKKXgoVK721dGfvMMazQi8BHt4jD7\n32cRBiuhYii26lvfzHckzr4dyilYEpvGkSaMNHOl/5PQtTiWwqsW+H4UF2yMkOgV\nYdtFLxRlluT9Kf1THS3r3hfEwH6S3Jag86mzVj+X/d+yCXbcn5kYJTWD4puGI2UM\nfz+sef5ueIAKueKAYRr9Kdhmy5iFjwKSwimVb0RRU/Pn/4yHuueZZV+v3JZwN0SK\nTg3eBoPDAgMBAAECggEAYDdLmSEaIB9WZ+P/WWjajS9P1vv8HMRjYLhMANOIUCcL\ngGC5LQUalgIfJFObRBKeOtpwB/QWZZyMd95hZ9TGQhsk5NhE7BKgueJEjkb2Ul28\ngb/GXA1nAA06fviL9xkextYZ5wWG9Qr6byyuHAuJa/MLUaZgmEoqsX5r9A5kZpP3\nLoRFFiAPfwtM7hWVo8ZwUA1uS1nqtHa3OXobIdUhiBrkn9TDQFr7OZbyCpkzk0KK\nfbB9V45OCNxdjM2acwirPfp/dvxAvjJDqddMREzeGgC7pT2bz7+UauGHoK/bnNdd\nPqBRhu3OjQWxwWRH8YvdHQepoALZ22pGlrs4sEd4aQKBgQD8jhDXdqMnBiFB9PUe\nPPqm58MhqLPM78bR0LwMnAoDm7705i0Ny0JAlWSVMEFF3iv7/zo1GZxyuVA/z2pc\nslh9hrsp9jGkgb0Gk9rHtewZMuwSrhkVxlzt58RLzZXp3ketNnUyQ8U7z7vmW79N\nKWgq+5BOIV1/0B2f3ymfrQxVLQKBgQDZdRJ+WzU5pTw8McLx1Knsj0/aOx5zonSm\nIYTn7XyD22gwGUZ4QJU18/6EVaw9XIWiHHojABDvKqgrNeaj6y0OFHpYdp9CwGeA\no0+X0UR6pWxhC/d6DWpmEy0bWtzKNo0R8tucILas4hf9UjpC2pES9I4oi0LT/rX/\nRiOkljuyrwKBgEwGN+ukOti0b657Ho5LrOgxO/wV3IoEY8UlIHZrQlhzubfe0hEk\n7nyie/Ss4fk2N+dTnSH+46llP1L2DP56cUjYFd87zRXIOC6Ss3kKulebjJTS85oq\nbC7xZZWr/US5NLpfekf3PpgSoG1nkN6ZaFIICBh80rh23XQSqWT3oo7BAoGAL5/d\nMgElsf9HJuO7Dx2FLYLheSjzbV3J8ExtACJZ38LgmZAfh9yVESDjv/XHaBToS22z\nLhEopEiSVgxS+9lYn7nKZa9tB8B9qoWZu+Uf+0BZcROe2oMvpzVR7qjCrCKwWJr4\nj8P2XfySRm+IxPV7Skx3CdgeBbHGCCdDTRt97Y8CgYAdm9gl60u1zEOsCP49uJ2r\n3F4/ZiQyfQosEaCXV4eEE311w8+AU2peypPcdmZAXFfIJso7vudfAjy8GRwWHY1C\n9JLI639S3kv4Ndi7Cb0+GQsG+YcDO3h0I0m0X92rKm4IEAoctpnWi7HRRpAXE+HV\nmchEiF9Ic/MTN3CQaPgkAw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "vertex-ai-rag-service@basketball-coach-rag.iam.gserviceaccount.com",
+  "client_id": "114644715514271721381",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vertex-ai-rag-service%40basketball-coach-rag.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
