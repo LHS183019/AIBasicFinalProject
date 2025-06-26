@@ -21,6 +21,7 @@
 \usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{booktabs} % for professional tables
+\usepackage{listings}
 
 % hyperref makes hyperlinks in the resulting PDF.
 % If your build breaks (sometimes temporarily if a hyperlink spans a page)
@@ -66,7 +67,6 @@
 %    and comment out the line below the next line to turn off comments
 %\usepackage[disable,textsize=tiny]{todonotes}
 \usepackage[textsize=tiny]{todonotes}
-
 
 % The \icmltitle you define below is probably too long as a header.
 % Therefore, a short form for the running title is supplied here:
@@ -274,51 +274,61 @@
 \subsection{参数调优实验}
 
 \subsubsection{参数输出对比}
-通过相同问题在不同参数下的输出对比，展示temperature和top\_p的影响，例如：
-\begin{table}[t]
-\caption{参数输出对比（问题："如何提高三分球命中率？"）}
-\label{output-comparison}
-\begin{center}
-\renewcommand{\arraystretch}{0.8} % 默认是1.0，减小20%
-\setlength{\tabcolsep}{3pt} % 减小列间距
-\begin{tabular}{p{2cm}|p{4.5cm}|p{3cm}}
-\toprule
-\textbf{参数组合} & \textbf{输出内容} & \textbf{特点分析} \\
-\midrule
-\texttt{temp=0.1} & 提高三分球命中率需要：\\
-\texttt{top\_p=0.5} & 1. 规范投篮姿势\\
- & 2. 每天练习300次\\
- & 3. 加强上肢力量训练 & \begin{itemize}
-   \item 保守准确
-   \item 缺乏细节
-   \item 像教科书答案
- \end{itemize} \\
-\hline
-\texttt{temp=0.2} & 三分球提升需要分步训练：\\
-\texttt{top\_p=0.9} & \textbf{基础阶段}：每天定点投篮200次，注重手腕发力\\
- & \textbf{进阶阶段}：增加移动投篮训练，模拟比赛场景\\
- & \textbf{实战建议}：观看库里比赛录像，学习出手节奏 & \begin{itemize}
-   \item 结构清晰
-   \item 有实用建议
-   \item 适合教学
- \end{itemize} \\
-\hline
-\texttt{temp=0.8} & 哥们儿想练三分？试试这些狠招：\\
-\texttt{top\_p=0.9} & • 凌晨5点球场特训 - 科比精神！\\
- & • 单手投篮挑战（培养手感）\\
- & • 心理暗示法：每次投篮想象自己是汤普森\\
- & \textit{注：受伤别硬撑哦~} & \begin{itemize}
-   \item 生动有趣
-   \item 有创意建议
-   \item 适合激励青少年
- \end{itemize} \\
-\bottomrule
-\end{tabular}
-\end{center}
-\end{table}
+通过相同问题在不同参数下的输出对比，展示temperature和top\_p的影响，以下是典型样例：
+\newline
+\textbf{问题：如何提高三分球命中率？}
+\begin{enumerate}
+  \item
+  参数设置: \lstinline{temperature=0.2},\lstinline{top_p=0.9}
+  提高三分球命中率，核心在于理解并掌控投篮时的力量来源与传输，也就是我们常说的投篮节奏。这不仅仅是重复动作，更是要练习产生这些动作的内在力量传导。
+  你可以尝试运用体育心理学中的“表象训练”方法。通过在大脑中不断演练、修正和完善你的投篮动作，最终形成肌肉记忆。这意味着你需要反复协调大脑和身体，寻找各个力量来源的最佳比例，这样才能真正提高你的投篮水平。
+  记住，每一次训练都是为了让你更接近那个完美的投篮！
+  
+  \textbf{分析：}
+  \begin{itemize}
+    \item 结构清晰
+    \item 有实用建议
+    \item 适合教学
+  \end{itemize}
 
+
+  \item
+  参数设置: \lstinline{temperature=0.1},\lstinline{top_p=0.5}
+  提高三分球命中率，核心在于对投篮时力量来源的理解和力量传输的掌控。这不仅仅是机械地重复动作，更是要练习如何将内在的力量有效地传导出去，形成流畅的投篮动作。
+  你可以通过以下几个方面来提升：
+  表象训练与肌肉记忆： 想象自己完美投篮的画面，利用大脑中已经形成的投篮“表象”，不断地练习、修正和完善你的投篮动作。这种心理训练结合实际练习，能够帮助你更快地形成肌肉记忆。
+  力量传导与协调： 持续重复大脑和身体的协调练习，寻找各个力量来源（例如腿部、核心、手臂和手腕）的最佳发力比例。当你能够高效地整合这些力量时，你的投篮会更加稳定和精准。
+  投篮选择与篮球意识： 在比赛中，选择合适的投篮时机和位置同样重要。提高你的篮球意识，学会判断何时出手，何时传球，这也能间接提高你的有效命中率。
+  记住，每一次训练都是为了让你更接近那个完美的投篮。保持专注，不断尝试，你一定能成为一名出色的三分射手！
+  
+  \textbf{分析：}
+  \begin{itemize}
+    \item 保守准确
+    \item 缺乏细节
+    \item 像教科书答案
+  \end{itemize}
+
+
+  \item
+  \lstinline{temperature=0.8},\lstinline{top_p=0.9}
+  要提高你的三分球命中率，这可是一门学问，需要你深入理解并持之以恒地训练。
+  首先，也是最核心的，你需要理解“力源”和“力量传输”，也就是我们常说的“投篮节奏”。投篮不仅仅是手臂的动作，它是一个全身协调发力的过程，从脚底到指尖，力量需要顺畅、高效地传递出去。
+  力源与节奏：你的投篮力量并非只来源于手臂，它源于你的腿部、核心、背部，最终通过手臂和手腕将球推出。你需要找到这些力源之间的最佳协调比例，让它们形成一个连贯、流畅的“投篮节奏”。这意味着你的起跳、举球、出手应该是一气呵成的，而不是分段式的。
+  肌肉记忆：这是提高命中率的关键。你不能只靠“想”去投篮，而是要让身体形成一种自然的反应。这需要大量的重复练习，但请记住，不是盲目的重复。每一次投篮，你都应该去感受力量的传递是否顺畅，动作是否稳定。
+  表象训练：这是一种非常有效的心理学训练方法。即使不在球场上，你也可以在大脑中不断地“演练”完美的投篮动作。想象自己站在三分线外，感受球的重量，想象力量从脚到手的传递，想象球划过一道完美的弧线，空心入网。这种心理训练可以帮助你加深肌肉记忆，并在实际投篮时更好地执行。
+  持续修正与完善：投篮技术不是一蹴而就的。每次训练后，回顾你的表现，找出可以改进的地方。是出手点太低？还是手腕没有充分拨球？亦或是身体没有保持平衡？不断地修正和完善你的动作，直到你找到最适合自己的、最高效的投篮姿势。
+  记住，每一次投篮都是一次学习和进步的机会。保持耐心，享受训练的过程，你一定能看到你的三分球命中率稳步提升！
+ 
+  \textbf{分析：}
+  \begin{itemize}
+    \item 生动有趣
+    \item 有创意建议
+    \item 适合激励青少年
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{参数调优对比}
 Gemini模型参数调优结果如表\ref{param-tuning}所示，展示了不同temperature和top\_p组合对篮球问答质量的影响。
-
 \begin{table}[t]
 \caption{Gemini模型参数调优结果（篮球问答场景）}
 \label{param-tuning}
