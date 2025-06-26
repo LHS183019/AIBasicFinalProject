@@ -40,8 +40,7 @@ google_search_agent = Agent(
        "go ahead and stick with google search!"
        ),
    instruction="You are an expert researcher. You always stick to the facts.",
-   tools=[google_search],
-   output_key="google_search_result"
+   tools=[google_search]
 )
 
 # ---------------RAG SEARCH AGENT----------------- #
@@ -59,7 +58,6 @@ ask_vertex_retrieval = VertexAiRagRetrieval(
     similarity_top_k=RAG_TOP_K,
     vector_distance_threshold=RAG_DISTANCE_THRESHOLD
 )
-
 basketball_rag_search_agent = Agent(
     model="gemini-2.0-flash",
     name="basketball_rag_search_agent",
@@ -76,17 +74,16 @@ basketball_rag_search_agent = Agent(
         " questions based on documents that are retrievable using"
         " ask_vertex_retrieval. If no related result, say you can't find any related data."
     ),
-    tools=[ask_vertex_retrieval],
-    output_key="basketball_rag_result"
+    tools=[ask_vertex_retrieval]
 )
 
 # ---------------LOCAL USER DATABASE SEARCH AGENT----------------- #
 
-player_db_agent = Agent(
+player_data_record = Agent(
     model="gemini-2.0-flash",
-    name="user_customized_players_information_database_service_agent",
-    description=player_db_agent_description,
-    instruction=player_db_agent_instruction,
+    name="your_players_data_recorder",
+    description=player_data_record_description,
+    instruction=player_data_record_instruction,
     tools=[
         # 添加球员资料库工具
         FunctionTool(get_player_by_name),
@@ -97,35 +94,19 @@ player_db_agent = Agent(
     ]
 )
 
-# ---------------INTERGRATE ALL SEARCH AGENT------------------------ #
-
-
-merger_agent = Agent(
-    name="parallel_search_results_merger_agent",
-    model="gemini-2.5-flash",  # Or potentially a more powerful model if needed for synthesis
-    instruction=merger_agent_instruction,
-    description="Combines research findings from parallel agents into a structured, cited report, strictly grounded on provided inputs." 
-)
-
+# ---------------BROWSER SEARCH AGENT------------------------ #
 parallel_search_agent = ParallelAgent(
      name="parallel_search_agent",
      sub_agents=[google_search_agent, basketball_rag_search_agent],
-     description="Runs multiple research agents in p arallel to gather information."
+     description="Runs multiple research agents in parallel to gather information."
 )
 
-sequential_search_pipeline_agent = SequentialAgent(
-     name="sequential_search_pipeline_agent",
-     # Run parallel research first, then merge
-     sub_agents=[parallel_search_agent, merger_agent],
-     description="Coordinates parallel research and synthesizes the results about a basketball-related inquiry, using both RAG system and google search to grounded the results."
- )
-
-basketball_search_agent = Agent(
-    name="powerful_basketball_related_search_agent",
+basketball_coach_browser = Agent(
+    name="powerful_basketball_coach_browser",
     model="gemini-2.5-flash",
-    description=basketball_search_agent_description,
-    instruction=basketball_search_agent_instruction,
-    tools=[AgentTool(player_db_agent), AgentTool(sequential_search_pipeline_agent)]
+    description=basketball_coach_browser_description,
+    instruction=basketball_coach_browser_instruction,
+    tools=[AgentTool(basketball_rag_search_agent),AgentTool(google_search_agent), AgentTool(parallel_search_agent)]
 )
 
-root_agent = basketball_search_agent
+root_agent = basketball_coach_browser

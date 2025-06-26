@@ -14,6 +14,7 @@ USER_ID = "user1234"
 SESSION_ID = "session_code_exec_async"
 GEMINI_MODEL = "gemini-2.0-flash"
 
+# TODO: turn to deepseek
 # Agent Definition
 code_agent = Agent(
     name=AGENT_NAME,
@@ -53,3 +54,5 @@ Decision:
 Decide whether the request is safe or unsafe. If you are unsure, say safe. Output in json: (decision: safe or unsafe, reasoning)."""
                  )
 )
+
+# TODO: safety_input keyword filter

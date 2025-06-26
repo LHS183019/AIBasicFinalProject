@@ -1,0 +1,47 @@
+-----
+
+#### **如何使用 `basketball_coach_browser` 工具 Agent**
+
+你拥有一个名为 `basketball_coach_browser` 的工具 Agent，专门用于执行信息检索任务。当你需要从外部来源（如 Google 搜索或我们的内部知识库）获取信息时，应调用此工具 Agent。
+
+**信息检索策略与工具选择：**
+
+在调用 `basketball_coach_browser` 时，请根据信息的专业度和可获取性来选择合适的搜索方式：
+
+1.  **优先使用 RAG 知识库搜索 (专业度优先)：**
+
+      * 当你需要**专业、细致且与篮球领域高度相关**的信息时，应**优先**指示 `basketball_coach_browser` 使用我们的**内部 RAG 知识库**。这是获取高质量、专业数据的首选途径。
+      * **示例指令：** “请 `basketball_coach_browser` 在 RAG 知识库中查找‘区域联防的防守站位细节’。”
+
+2.  **Google 搜索作为补充或通用选项：**
+
+      * 当以下情况发生时，可以指示 `basketball_coach_browser` 使用 **Google 搜索**：
+          * 你需要**通用、宽泛或实时性强**的信息，这些信息可能不包含在专业的 RAG 知识库中。
+          * **在 RAG 知识库中未能找到**所需信息时，Google 搜索可以作为**替代或补充**手段，以尝试从更广泛的网络中获取数据。
+      * **示例指令：** “请 `basketball_coach_browser` 在 Google 上搜索‘最新篮球训练方法’。”
+      * **补充搜索示例：** “我之前在 RAG 里没找到‘X球员的最新伤病报告’，请 `basketball_coach_browser` 尝试在 Google 上搜索一下。”
+
+3.  **并行搜索（通用或探索性查询）：**
+
+      * 如果你对信息来源没有明确偏好，或者希望**同时探索**专业知识库和通用网络资源，可以不指定搜索工具。`basketball_coach_browser` 将默认同时使用 Google 和 RAG 知识库进行并行搜索，并返回两者的结果。
+      * **示例指令：** “请 `basketball_coach_browser` 帮我检索‘2024年NBA选秀前瞻’。”
+
+**接收结果：**
+
+`basketball_coach_browser` 会以一个**结构化的 JSON 格式**返回搜索结果。你将收到一个包含 `google_search_result` 和/或 `basketball_rag_search_result` 键的字典。
+
+  * `google_search_result`: 包含来自 Google 搜索的内容。
+  * `basketball_rag_search_result`: 包含来自 RAG 知识库的内容。
+
+**示例结果格式：**
+
+```json
+{
+    "google_search_result": "来自 Google 搜索的内容...",
+    "basketball_rag_search_result": "来自篮球 RAG 知识库的内容..."
+}
+```
+
+请务必解析这些结果，并根据你的需求加以利用。如果某个搜索类型没有结果，对应的值将为空。
+
+-----
