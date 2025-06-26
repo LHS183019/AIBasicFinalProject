@@ -17,7 +17,6 @@ import os
 from dotenv import load_dotenv
 from google.adk.agents import Agent
 from google.adk.agents.parallel_agent import ParallelAgent
-from google.adk.agents.sequential_agent import SequentialAgent
 from google.adk.tools import FunctionTool
 from google.adk.tools.agent_tool import AgentTool
 
@@ -27,6 +26,8 @@ from ..config import RAG_CORPUS,RAG_TOP_K,RAG_DISTANCE_THRESHOLD
 from google.adk.tools import google_search  # Import the tool
 from ..data.local_db_tools import *
 from ..prompts import * 
+from ..config import GEMINI_MODEL
+
 
 load_dotenv()
 
@@ -79,7 +80,7 @@ basketball_rag_search_agent = Agent(
 
 # ---------------LOCAL USER DATABASE SEARCH AGENT----------------- #
 
-player_data_record = Agent(
+player_data_recorder = Agent(
     model="gemini-2.0-flash",
     name="your_players_data_recorder",
     description=player_data_record_description,
@@ -103,7 +104,7 @@ parallel_search_agent = ParallelAgent(
 
 basketball_coach_browser = Agent(
     name="powerful_basketball_coach_browser",
-    model="gemini-2.5-flash",
+    model=GEMINI_MODEL,
     description=basketball_coach_browser_description,
     instruction=basketball_coach_browser_instruction,
     tools=[AgentTool(basketball_rag_search_agent),AgentTool(google_search_agent), AgentTool(parallel_search_agent)]
