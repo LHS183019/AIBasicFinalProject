@@ -26,7 +26,6 @@ code_agent = Agent(
     description="Executes Python code to perform calculations.",
 )
 
-
 safety_input_agent = Agent(
     name="safety_guardrail",
     model=GEMINI_MODEL,

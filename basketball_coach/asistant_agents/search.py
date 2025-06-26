@@ -16,12 +16,18 @@ import os
 
 from dotenv import load_dotenv
 from google.adk.agents import Agent
+from google.adk.tools import agent_tool,FunctionTool
+
 from google.adk.tools.retrieval.vertex_ai_rag_retrieval import VertexAiRagRetrieval
 from vertexai.preview import rag
 from ..config import RAG_CORPUS
 from google.adk.tools import google_search  # Import the tool
+from ..data.local_db_tools import *
+from ..prompts import * 
 
 load_dotenv()
+
+# ---------------GOOGLE SEARCH AGENT----------------- #
 google_search_agent = Agent(
    name="google_search_agent",
    model="gemini-2.0-flash", 
@@ -34,8 +40,7 @@ google_search_agent = Agent(
    tools=[google_search]
 )
 
-
-
+# ---------------RAG SEARCH AGENT----------------- #
 ask_vertex_retrieval = VertexAiRagRetrieval(
     name="basketball_retrieve_rag_documentation",
     description=(
@@ -69,3 +74,26 @@ basketball_rag_search_agent = Agent(
     ),
     tools=[ask_vertex_retrieval],
 )
+
+# ---------------LOCAL USER DATABASE SEARCH AGENT----------------- #
+
+player_db_agent = Agent(
+    model="gemini-2.0-flash",
+    name="user_customized_players_information_database_service_agent",
+    description=player_db_agent_description,
+    instruction=player_db_agent_instruction,
+    tools=[
+        # 添加球员资料库工具
+        FunctionTool(get_player_by_name),
+        FunctionTool(list_all_players),
+        FunctionTool(add_player),
+        FunctionTool(update_player),
+        FunctionTool(delete_player),
+    ],
+)
+
+# ---------------INTERGRATED SEARCH AGENT------------------------ #
+# search_agent = Agent(
+#     model="gemini-2.5-flash",
+#     name="powerful_search_agent"
+# )

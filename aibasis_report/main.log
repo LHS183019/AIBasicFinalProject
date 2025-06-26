@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.24)  25 JUN 2025 17:25
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.1.24)  26 JUN 2025 12:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -134,6 +134,9 @@ Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 (c:/texlive/2024/texmf-dist/tex/xelatex/xecjk/xeCJK.cfg
 File: xeCJK.cfg 2022/08/05 v3.9.1 Configuration file for xeCJK package
 ))
+(c:/texlive/2024/texmf-dist/tex/latex/psnfss/times.sty
+Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
+)
 
 Package fontspec Info: 
 (fontspec)             Could not resolve font "SimSun/BI" (it probably doesn't
@@ -149,6 +152,14 @@ Package fontspec Info:
 (fontspec)             Could not resolve font "SimSun/I" (it probably doesn't
 (fontspec)             exist).
 
+LaTeX Font Info:    Trying to load font information for TU+ptm on input line 18
+.
+LaTeX Font Info:    No file TUptm.fd. on input line 18.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
+(Font)              using `TU/lmr/m/n' instead on input line 18.
+
 
 Package fontspec Info: 
 (fontspec)             Font family 'SimSun(0)' created for font 'SimSun' with
@@ -159,7 +170,6 @@ Package fontspec Info:
 (fontspec)              
 (fontspec)             - 'normal' (m/n) with NFSS spec.:
 (fontspec)             <->"SimSun/OT:script=hani;language=dflt;"
-
 
 (c:/texlive/2024/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2024/12/12 v3.2 Micro-typographical refinements (RS)
@@ -393,18 +403,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 (./icml2025.sty
 Package: icml2025 2023/11/23 v2.0 ICML Conference Style File
- (c:/texlive/2024/texmf-dist/tex/latex/psnfss/times.sty
-Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
+
 
 Package xeCJK Warning: Redefining CJKfamily `\CJKrmdefault' (SimSun(0)).
-
-LaTeX Font Info:    Trying to load font information for TU+ptm on input line 96
-.
-LaTeX Font Info:    No file TUptm.fd. on input line 96.
-
-LaTeX Font Warning: Font shape `TU/ptm/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 96.
 
 (c:/texlive/2024/texmf-dist/tex/latex/tools/indentfirst.sty
 Package: indentfirst 2023/07/02 v1.03 Indent first paragraph (DPC)
@@ -919,26 +920,26 @@ File: tikzlibrarypositioning.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 
 Package fontspec Info: 
 (fontspec)             Adjusting the maths setup (use [no-math] to avoid
@@ -946,63 +947,63 @@ Package fontspec Info:
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 69.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 69.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 69.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 69.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 69.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 69.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 69.
-LaTeX Font Info:    Redeclaring math accent \check on input line 69.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 69.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 69.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 69.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 69.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 69.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 75.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 75.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 75.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 75.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 75.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 75.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 75.
+LaTeX Font Info:    Redeclaring math accent \check on input line 75.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 75.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 75.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 75.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 75.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 75.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 69.
+(Font)              `operators' in the math version `normal' on input line 75.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/ptm/m/n on input line 69.
+(Font)                  OT1/cmr/m/n --> TU/ptm/m/n on input line 75.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 69.
+(Font)              `operators' in the math version `bold' on input line 75.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/ptm/m/n on input line 69.
+(Font)                  OT1/cmr/bx/n --> TU/ptm/m/n on input line 75.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/ptm/m/n --> TU/ptm/m/n on input line 69.
+(Font)                  TU/ptm/m/n --> TU/ptm/m/n on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/ptm/m/it on input line 69.
+(Font)                  OT1/cmr/m/it --> TU/ptm/m/it on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/ptm/b/n on input line 69.
+(Font)                  OT1/cmr/bx/n --> TU/ptm/b/n on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/phv/m/n on input line 69.
+(Font)                  OT1/cmss/m/n --> TU/phv/m/n on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/pcr/m/n on input line 69.
+(Font)                  OT1/cmtt/m/n --> TU/pcr/m/n on input line 75.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/ptm/m/n --> TU/ptm/b/n on input line 69.
+(Font)                  TU/ptm/m/n --> TU/ptm/b/n on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/ptm/b/it on input line 69.
+(Font)                  OT1/cmr/bx/it --> TU/ptm/b/it on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/phv/b/n on input line 69.
+(Font)                  OT1/cmss/bx/n --> TU/phv/b/n on input line 75.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/pcr/b/n on input line 69.
-LaTeX Info: Redefining \microtypecontext on input line 69.
-Package microtype Info: Applying patch `item' on input line 69.
-Package microtype Info: Applying patch `toc' on input line 69.
-Package microtype Info: Applying patch `eqnum' on input line 69.
-Package microtype Info: Applying patch `footnote' on input line 69.
-Package microtype Info: Applying patch `verbatim' on input line 69.
-LaTeX Info: Redefining \microtypesetup on input line 69.
+(Font)                  OT1/cmtt/m/n --> TU/pcr/b/n on input line 75.
+LaTeX Info: Redefining \microtypecontext on input line 75.
+Package microtype Info: Applying patch `item' on input line 75.
+Package microtype Info: Applying patch `toc' on input line 75.
+Package microtype Info: Applying patch `eqnum' on input line 75.
+Package microtype Info: Applying patch `footnote' on input line 75.
+Package microtype Info: Applying patch `verbatim' on input line 75.
+LaTeX Info: Redefining \microtypesetup on input line 75.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: No adjustment of tracking.
@@ -1016,7 +1017,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `ptm' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring ON on input line 69.
+Package hyperref Info: Link coloring ON on input line 75.
  (./main.out)
 (./main.out)
 \@outlinefile=\write4
@@ -1025,7 +1026,7 @@ Package hyperref Info: Link coloring ON on input line 69.
 
 
 LaTeX Font Warning: Font shape `TU/ptm/b/n' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 90.
+(Font)              using `TU/ptm/m/n' instead on input line 96.
 
 
 
@@ -1038,10 +1039,10 @@ with \icmltitlerunning{...} prior to \begin{document}
 
 
 LaTeX Font Warning: Font shape `TU/SimSun(0)/b/n' undefined
-(Font)              using `TU/SimSun(0)/m/n' instead on input line 90.
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 96.
 
 \c@@affil背景1=\count369
-LaTeX Font Info:    Trying to load font information for U+msa on input line 90.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 96.
 
 (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1049,7 +1050,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (c:/texlive/2024/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 96.
 
 
 (c:/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1061,7 +1062,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 (c:/texlive/2024/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
-) (./main.bbl
+)
 
 Package fontspec Info: 
 (fontspec)             Could not resolve font "FangSong/BI" (it probably
@@ -1077,13 +1078,13 @@ Package fontspec Info:
 (fontspec)             Could not resolve font "FangSong/I" (it probably
 (fontspec)             doesn't exist).
 
-LaTeX Font Info:    Trying to load font information for TU+pcr on input line 11
-.
-LaTeX Font Info:    No file TUpcr.fd. on input line 11.
+LaTeX Font Info:    Trying to load font information for TU+pcr on input line 22
+5.
+LaTeX Font Info:    No file TUpcr.fd. on input line 225.
 
 
 LaTeX Font Warning: Font shape `TU/pcr/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 11.
+(Font)              using `TU/lmr/m/n' instead on input line 225.
 
 (c:/texlive/2024/texmf-dist/tex/latex/microtype/mt-LatinModernRoman.cfg
 File: mt-LatinModernRoman.cfg 2021/02/21 v1.1 microtype config. file: Latin Mod
@@ -1105,11 +1106,71 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
+Underfull \hbox (badness 10000) in paragraph at lines 242--243
+[]\TU/SimSun(0)/m/n/10 知 识 收 集：| \TU/pcr/m/n/10 KnowledgeCollectOutput |\TU/Sim
+Sun(0)/m/n/10 （解
+ []
+
+
+Underfull \hbox (badness 2035) in paragraph at lines 243--244
+[]\TU/SimSun(0)/m/n/10 训 练 计 划：| \TU/pcr/m/n/10 TrainingPlanOutput |\TU/SimSun(
+0)/m/n/10 （阶 段\TU/pcr/m/n/10 /\TU/SimSun(0)/m/n/10 目
+ []
+
+
+
+
+Overfull \hbox (63.9094pt too wide) in paragraph at lines 257--257
+ []        \TU/pcr/m/n/10 ”\TU/FangSong(0)/m/n/10 一旦怀疑收到不合理输入，| 立即向\TU/pcr/m/n/
+10 safety_input_agent\TU/FangSong(0)/m/n/10 求助\TU/pcr/m/n/10 ”[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 268--269
+[]\TU/SimSun(0)/m/n/10 思 维 链 配 置：| \TU/pcr/m/n/10 in-
+ []
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/sc' undefined
+(Font)              using `TU/ptm/m/n' instead on input line 276.
+
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/sc' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 276.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/sl' undefined
+(Font)              using `TU/ptm/m/it' instead on input line 279.
+
 
 LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 17.
+(Font)              using `TU/ptm/m/n' instead on input line 279.
 
-)
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/m/it' undefined
+(Font)              using `TU/SimSun(0)/m/n' instead on input line 310.
+
+
+Overfull \hbox (53.42366pt too wide) in paragraph at lines 284--317
+ [] 
+ []
+
+
+LaTeX Font Warning: Font shape `TU/ptm/m/sl' undefined
+(Font)              using `TU/ptm/m/it' instead on input line 323.
+
+
+LaTeX Font Warning: Font shape `TU/ptm/b/sc' undefined
+(Font)              using `TU/ptm/b/n' instead on input line 343.
+
+
+LaTeX Font Warning: Font shape `TU/SimSun(0)/b/sc' undefined
+(Font)              using `TU/SimSun(0)/b/n' instead on input line 343.
+
+
+Overfull \hbox (1.68689pt too wide) in paragraph at lines 343--346
+ [] 
+ []
 
 
 
@@ -1118,8 +1179,21 @@ LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
 
 
 ]
+Underfull \hbox (badness 10000) in paragraph at lines 366--367
+\TU/SimSun(0)/m/n/10 参 数 选 择 依 据 最 终 选 择 \TU/ptm/m/it/10 temperature=0.2,
+ []
 
-[2
+(./main.bbl
+
+Package natbib Warning: Empty `thebibliography' environment on input line 8.
+
+)
+
+
+
+[2]
+
+[3
 
 ] (./main.aux)
  ***********
@@ -1134,12 +1208,12 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 29601 strings out of 473846
- 613200 string characters out of 5733563
- 1049699 words of memory out of 5000000
- 52181 multiletter control sequences out of 15000+600000
- 561590 words of font info for 64 fonts, out of 8000000 for 9000
+ 29826 strings out of 473846
+ 623246 string characters out of 5733563
+ 1087704 words of memory out of 5000000
+ 52395 multiletter control sequences out of 15000+600000
+ 564716 words of font info for 79 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 99i,11n,101p,1001b,626s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 99i,12n,101p,1001b,759s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.pdf (2 pages).
+Output written on main.pdf (3 pages).

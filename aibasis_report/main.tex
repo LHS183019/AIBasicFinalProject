@@ -9,7 +9,12 @@
 % Uncomment the following two lines ONLY if you need to typeset Chinese text in your document.
 % Otherwise, comment them out to avoid font substitution errors with the ICML template.
 \usepackage{xeCJK} % Add this for Chinese support
-\setCJKmainfont{SimSun} % Or another CJK font installed on your system
+\usepackage{fontspec}
+% \setmonofont{Fira Mono} % Or another monospaced font installed on your system
+% 在导言区添加以下代码解决字体错误
+\usepackage{times} % 添加times字体包
+\renewcommand{\sc}{\scshape} % 重新定义小型大写字母命令
+\setCJKmainfont{SimSun} % 明确指定中文字体
 
 % Recommended, but optional, packages for figures and better typesetting:
 \usepackage{microtype}
@@ -22,7 +27,8 @@
 % please comment out the following usepackage line and replace
 % \usepackage{icml2025} with \usepackage[nohyperref]{icml2025} above.
 \usepackage{hyperref}
-
+% 推荐：使用newtxtext和newtxmath以获得更好的兼容性
+% \usepackage{newtxtext,newtxmath}
 
 % Attempt to make hyperref and algorithmic work together better:
 \newcommand{\theHalgorithm}{\arabic{algorithm}}
@@ -74,8 +80,8 @@
 %示例，根据自己的背景更改
 \begin{icmlauthorlist}
 \icmlauthor{丁语瞳}{背景1}
-\icmlauthor{队员姓名2}{背景1}
-\icmlauthor{队员姓名3}{背景1}
+\icmlauthor{许诗雅}{背景1}
+\icmlauthor{韩秉辰}{背景1}
 \end{icmlauthorlist}
 
 
@@ -99,11 +105,11 @@
 项目内容
 
 %分段
-\begin{itemize}
+\begin{enumerate}
 \item 内容1
 \item 内容2
 \item 内容3
-\end{itemize}
+\end{enumerate}
 
 
 % \subsection{算法}
@@ -209,21 +215,163 @@
 
 
 \section{prompt工程}
-以下设计均基于google adk提供的指导完成。
+以下设计均基于Google ADK提供的指导完成，实现了多代理协作的篮球教练系统。
+
 \subsection{基础设计}
-\cite{Google}根据google提供的实例设置了三个子代理和一个根代理的描述与指导。
+系统采用根代理-子代理架构：
+\begin{enumerate}
+    \item \textbf{根代理}：Basketball\_Coach（篮球教练），负责路由用户请求
+    \begin{enumerate}
+        \item 身份定义：\texttt{basketball\_coach\_instruction}强调专业篮球术语使用和青少年鼓励语言
+        \item 安全机制：所有输入首先经过安全代理检查
+        \item 工具集成：动态调用4个专业子代理
+    \end{enumerate}
+    
+    \item \textbf{子代理系统}：
+    \begin{enumerate}
+        \item 知识检索代理：\texttt{google\_search\_agent} + \texttt{basketball\_rag\_search\_agent}
+        \item 安全护栏代理：\texttt{safety\_input\_agent} 检测有害输入
+        \item 代码执行代理：\texttt{code\_agent} 处理数学计算
+    \end{enumerate}
+\end{enumerate}
+
 \subsection{进阶设计}
 \begin{enumerate}
-    \item 设置了三个子代理的输出结构。
+    \item \textbf{结构化输出控制}：使用Pydantic模型确保输出格式一致性
+    \begin{enumerate}
+        \item 知识收集：\texttt{KnowledgeCollectOutput}（解释/要点/战术）
+        \item 训练计划：\texttt{TrainingPlanOutput}（阶段/目标/训练项目）
+        \item 视频分析：\texttt{VideoAnalysisOutput}（优势/弱点/建议）
+    \end{enumerate}
+    
+    \item \textbf{安全机制设计}：
+    \begin{enumerate}
+        \item 双重防护：根代理指令强制所有输入通过\texttt{safety\_input\_agent}
+        \item 动态检测：安全代理使用示例驱动策略识别有害内容
+        \item 关键词黑名单：\texttt{BLOCKED\_KEYWORD}拦截特定危险词汇
+    \end{enumerate}
+    \begin{verbatim}
+    # prompts.py
+    basketball_coach_instruction = 
+        "一旦怀疑收到不合理输入，立即向safety_input_agent求助"
+    \end{verbatim}
+    
+    \item \textbf{检索增强生成(RAG)}：
+    \begin{enumerate}
+        \item 专用篮球知识库：Vertex AI RAG实现语义检索
+        \item 混合搜索策略：Google Search与RAG检索互补
+        \item 相似度阈值：\texttt{vector\_distance\_threshold=0.6}保证结果相关性
+    \end{enumerate}
+    
+    \item \textbf{认知过程可视化}：
+    \begin{enumerate}
+        \item 思维链配置：\texttt{include\_thoughts=ENABLE\_THOUGHT}
+        \item 温度控制：\texttt{temperature=0.2}平衡创造力和准确性
+        \item 记忆机制：\texttt{include\_contents="default"}将历史对话内容发送给根代理
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{参数调优实验}
+
+\subsubsection{参数输出对比}
+通过相同问题在不同参数下的输出对比，展示temperature和top\_p的影响，例如：
+\begin{table}[t]
+\caption{参数输出对比（问题："如何提高三分球命中率？"）}
+\label{output-comparison}
+\begin{center}
+\renewcommand{\arraystretch}{0.8} % 默认是1.0，减小20%
+\setlength{\tabcolsep}{3pt} % 减小列间距
+\begin{tabular}{p{2cm}|p{4.5cm}|p{3cm}}
+\toprule
+\textbf{参数组合} & \textbf{输出内容} & \textbf{特点分析} \\
+\midrule
+\texttt{temp=0.1} & 提高三分球命中率需要：\\
+\texttt{top\_p=0.5} & 1. 规范投篮姿势\\
+ & 2. 每天练习300次\\
+ & 3. 加强上肢力量训练 & \begin{itemize}
+   \item 保守准确
+   \item 缺乏细节
+   \item 像教科书答案
+ \end{itemize} \\
+\hline
+\texttt{temp=0.2} & 三分球提升需要分步训练：\\
+\texttt{top\_p=0.9} & \textbf{基础阶段}：每天定点投篮200次，注重手腕发力\\
+ & \textbf{进阶阶段}：增加移动投篮训练，模拟比赛场景\\
+ & \textbf{实战建议}：观看库里比赛录像，学习出手节奏 & \begin{itemize}
+   \item 结构清晰
+   \item 有实用建议
+   \item 适合教学
+ \end{itemize} \\
+\hline
+\texttt{temp=0.8} & 哥们儿想练三分？试试这些狠招：\\
+\texttt{top\_p=0.9} & • 凌晨5点球场特训 - 科比精神！\\
+ & • 单手投篮挑战（培养手感）\\
+ & • 心理暗示法：每次投篮想象自己是汤普森\\
+ & \textit{注：受伤别硬撑哦~} & \begin{itemize}
+   \item 生动有趣
+   \item 有创意建议
+   \item 适合激励青少年
+ \end{itemize} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+Gemini模型参数调优结果如表\ref{param-tuning}所示，展示了不同temperature和top\_p组合对篮球问答质量的影响。
+
+\begin{table}[t]
+\caption{Gemini模型参数调优结果（篮球问答场景）}
+\label{param-tuning}
+\vskip 0.15in
+\begin{center}
+\begin{small}
+\begin{sc}
+\scalebox{0.9}{
+\begin{tabular}{lcccc}
+\toprule
+Temperature & Top\_p & 准确性 (\%) & 相关性 (\%) & 多样性 \\
+\midrule
+0.1 & 0.5 & 极高 & 高 & 低 \\
+0.1 & 0.9 & 极高 & 高 & 低 \\
+0.2 & 0.5 & 极高 & 极高 & 中 \\
+\textbf{0.2} & \textbf{0.9} & \textbf{高} & \textbf{极高} & \textbf{高} \\
+0.5 & 0.5 & 高 & 极高 & 高 \\
+0.5 & 0.9 & 中 & 极高 & 极高 \\
+0.8 & 0.9 & 低 & 高 & 极高 \\
+\bottomrule
+\end{tabular}
+}
+\end{sc}
+\end{small}
+\end{center}
+\vskip -0.1in
+\end{table}
+
+\paragraph{参数语义解释}
+\begin{itemize}
+\item \textbf{Temperature}：控制输出随机性
+  \begin{itemize}
+  \item 低值(0.1-0.2)：确定性强，适合规则性内容
+  \item 高值(>0.5)：创造性高，适合战术建议
+  \end{itemize}
+  
+\item \textbf{Top\_p}：核采样概率阈值
+  \begin{itemize}
+  \item 低值(0.5)：严格筛选，回答保守
+  \item 高值(0.9)：包容性强，回答多样
+  \end{itemize}
+\end{itemize}
+
+\paragraph{参数选择依据}
+最终选择\textbf{temperature=0.2, top\_p=0.9}，平衡了：
+\begin{enumerate}
+\item 篮球规则准确性要求
+\item 战术建议多样性需求
+\item 青少年交流友好性
 \end{enumerate}
 
 
 \section{参考文献}
-
-%示例
-需要先去example\_paper.bib文件把自己的文献以正确的格式填入，然后内容里直接\cite{langley00}就行了。
-
-
 \bibliography{example_paper}
 \bibliographystyle{icml2025}
 

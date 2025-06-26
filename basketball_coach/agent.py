@@ -1,14 +1,10 @@
 from google.adk.agents import Agent
-from google.adk.tools import google_search  # Import the tool
-import datetime
-from zoneinfo import ZoneInfo
-from google.adk.agents import Agent
 from google.adk.planners import BuiltInPlanner
 from google.genai import types as genai_types
 from google.adk.tools import agent_tool
-from google.adk.code_executors import BuiltInCodeExecutor
-from .asistant_agents.search import google_search_agent,basketball_rag_search_agent
-from .asistant_agents.guardrail import code_agent,safety_input_agent
+
+from .asistant_agents.search import google_search_agent,basketball_rag_search_agent,player_db_agent
+from .asistant_agents.guardrail import safety_input_agent
 from . import prompts as my_prompts
 from .config import MODEl, ENABLE_THOUGHT
 
@@ -24,5 +20,9 @@ root_agent = Agent(
     planner=BuiltInPlanner(
             thinking_config=genai_types.ThinkingConfig(include_thoughts=ENABLE_THOUGHT)
         ),
-    tools=[agent_tool.AgentTool(google_search_agent),agent_tool.AgentTool(code_agent),agent_tool.AgentTool(safety_input_agent),agent_tool.AgentTool(basketball_rag_search_agent)],
+    tools=[agent_tool.AgentTool(google_search_agent),
+           agent_tool.AgentTool(safety_input_agent),
+           agent_tool.AgentTool(basketball_rag_search_agent),
+           agent_tool.AgentTool(player_db_agent),
+           ],
 )
