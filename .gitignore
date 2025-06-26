@@ -9,3 +9,6 @@ node_modules
 error_log
 
 *.mp4
+
+temp_service_key.json
+
