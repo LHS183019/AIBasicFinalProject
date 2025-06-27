@@ -35,7 +35,7 @@ training_planner = Agent(
         thinking_config=genai_types.ThinkingConfig(include_thoughts=ENABLE_THOUGHT)
     ),
     generate_content_config=genai_types.GenerateContentConfig(
-        temperature=0.7, # 适当的温度以鼓励创造性但仍保持逻辑性
+        temperature=0.5, # 适当的温度以鼓励创造性但仍保持逻辑性
         top_p=0.8
     ),
     tools=[
