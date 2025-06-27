@@ -4,10 +4,11 @@ from google.genai import types as genai_types
 from google.adk.tools.agent_tool import AgentTool
 from google.adk.tools.function_tool import FunctionTool
 
-from .asistant_agents.search import basketball_coach_browser,player_data_recorder,google_search_agent
+from .asistant_agents.search import basketball_coach_browser,player_data_recorder
 from .asistant_agents.guardrail import safety_input_agent
 from .asistant_agents.training import training_planner
 from .asistant_agents.tactic import basketball_tactic_maker
+from .asistant_agents.video import basketball_video_proccessor
 from . import prompts as my_prompts
 from .config import GEMINI_MODEL, ENABLE_THOUGHT
 
@@ -25,6 +26,7 @@ def get_handbook_of(tool_name:str) -> str:
     """Get a handbook of how to use a specific tool. Only the listed tool handbook are available. 
     If you need man page for `powerful_basketball_coach_browser`, pass param EXACTLY "browser". 
     other tools are follow:
+    `basketball_tactic_maker`:"tactic"
     `basketball_tactic_maker`:"tactic"
 
     Args:
@@ -64,7 +66,8 @@ root_agent = Agent(
            AgentTool(basketball_coach_browser),
            AgentTool(player_data_recorder),
            AgentTool(training_planner),
-           AgentTool(basketball_tactic_maker)
+           AgentTool(basketball_tactic_maker),
+           AgentTool(basketball_video_proccessor)
            ],
     # tools=[agent_tool.AgentTool(google_search_agent),
     #        agent_tool.AgentTool(safety_input_agent),

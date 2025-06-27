@@ -1,5 +1,6 @@
 import os
 from google.adk.models.lite_llm import LiteLlm
+from pathlib import Path
 
 
 # TODO: CHECK IF ENV IS SET
@@ -27,3 +28,8 @@ RAG_DISTANCE_THRESHOLD = 0.6
 # -------------USER PLAYER DB CONFIG----------------- #
 USER_PLAYER_DATA_FILE = "basketball_coach//data//test_players.json"
 USER_PLAYER_DATA_DIR = "basketball_coach//data"
+
+
+# -------------VIDEO ANALYZE CONFIG----------------- #
+DEFAULT_VIDEO_UPLOAD_DIR = Path.cwd() / "basketball_coach" / "videos"
+DEFAULT_VIDEO_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)

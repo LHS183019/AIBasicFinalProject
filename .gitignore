@@ -9,3 +9,5 @@ node_modules
 error_log
 
 *.mp4
+
+*evalset*
