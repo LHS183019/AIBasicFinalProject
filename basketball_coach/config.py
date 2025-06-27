@@ -1,9 +1,34 @@
 import os
 from google.adk.models.lite_llm import LiteLlm
 from pathlib import Path
+from google.genai import types as genai_types
 
 
 # TODO: CHECK IF ENV IS SET
+
+
+# -------------SAFETY SETTING-------------- #
+SAFETY_SETTING = [  genai_types.SafetySetting(
+                    category=genai_types.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT,
+                    threshold=genai_types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                    method=genai_types.HarmBlockMethod.SEVERITY),
+                    genai_types.SafetySetting(
+                    category=genai_types.HarmCategory.HARM_CATEGORY_CIVIC_INTEGRITY,
+                    threshold=genai_types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                    method=genai_types.HarmBlockMethod.SEVERITY),
+                    genai_types.SafetySetting(
+                    category=genai_types.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT,
+                    threshold=genai_types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                    method=genai_types.HarmBlockMethod.SEVERITY),
+                    genai_types.SafetySetting(
+                    category=genai_types.HarmCategory.HARM_CATEGORY_HARASSMENT,
+                    threshold=genai_types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                    method=genai_types.HarmBlockMethod.SEVERITY),
+                    genai_types.SafetySetting(
+                    category=genai_types.HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+                    threshold=genai_types.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+                    method=genai_types.HarmBlockMethod.SEVERITY),
+                  ]
 
 # -------------MODEL CONFIG----------------- #
 GEMINI_MODEL = "gemini-2.5-flash"
