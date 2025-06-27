@@ -149,70 +149,110 @@
 \icmlaffiliation{背景2}{物理学院, 北京大学, 大一年级}
 
 % 显目关键词，根据自己的项目更改
-\icmlkeywords{大模型，机器学习}
+\icmlkeywords{AI+Sports，Multi-agent，大模型，Gemini，google ADK}
 
 \vskip 0.3in
 ]
 
 % 项目摘要
 \begin{abstract}
-很短的项目摘要
+本项目旨在构建一个专业篮球教练AI助手，通过多代理协作架构尝试解决篮球领域的垂直问题，主要面向非专业篮球玩家。
 \end{abstract}
 
 % 需求分析
 \section{需求分析}
-本项目旨在构建一个专业篮球教练AI助手，通过多代理协作架构解决篮球领域的复杂问题。基于实际训练场景，系统需满足以下核心需求：
+目前在篮球领域集成的聊天型Agent很罕见，然而篮球运动作为普及性、专业性均强的体育项目，LLM、VLM可应用的场景要比想象中广泛。基于实际应用场景，我们挖掘出以下需求：
 
 \subsection{功能需求}
 \begin{enumerate}
-    \item \textbf{专业知识问答}：解答篮球规则、技术、战术问题（通过RAG知识库）
-    \item \textbf{个性化训练计划}：根据球员特点制定训练方案（位置/年龄/技术短板）
-    \item \textbf{战术制定系统}：基于球队和对手数据生成攻防策略
+    \item \textbf{专业知识问答}：解答篮球规则、技术、战术术语等问题，信息源应当可靠
+    \item \textbf{个性化训练计划}：根据球员特点（位置/年龄/技术短板等）定制训练方案
+    \item \textbf{战术制定系统}：基于球队和对手球队数据（队伍搭配/特点/技术长短版等）生成攻防策略
     \begin{itemize}
         \item 进攻战术：挡拆配合/快攻策略/外线投射
         \item 防守战术：区域联防/人盯人/全场紧逼
+        \item 实战指引：提供真实阵地战术和走位描述
     \end{itemize}
-    \item \textbf{球员数据管理}：本地数据库存储球员属性（技能评分/位置/特点）
-    \item \textbf{安全防护机制}：过滤有害内容（暴力/赌博/身份切换诱导）
+    \item \textbf{球员数据管理}：存储和维护球员属性（技能评分/位置/特点）
+    \item \textbf{篮球影片复盘}：辅助记录参赛阵容、检测得分时间戳、总结违例违规等
 \end{enumerate}
+
+本项目通过搭建RAG知识库、配置用户个性化信息库、构造多代理子系统来和优化提示词以实现上述功能。
+除了核心功能，我们还拥有下列功能/特性：
 
 \subsection{非功能需求}
 \begin{enumerate}
-    \item \textbf{响应实时性}：用户查询响应时间 < 3秒（Gemini-2.0-Flash优化）
-    \item \textbf{输出结构化}：训练计划/战术方案采用JSON标准化格式
-    \item \textbf{青少年适用性}：12岁以下球员训练量≤60分钟/天（年龄适配规则）
-    \item \textbf{专业术语准确率}：篮球术语使用准确率 > 95\%（RAG知识库保障）
+    \item \textbf{大模型安全防护机制}：指令注入防护和过滤有害内容（暴力/赌博等）：使用Agent作为Gr
+    \item \textbf{流式响应}：用户可在图形用户界面上选择开启/关闭流式响应
+    \item \textbf{输入输出结构化}：部分多代理系统内部交互，以及训练计划/战术方案输出采用JSON标准化格式
+    \item \textbf{青少年适用性}：制定年龄适配规则（如激励语气设定、12岁以下球员训练量≤60分钟/天）
+    \item \textbf{多模态输入输出}：除文字交互外，透过大模型协助实现图片、语音输出及图片、视频输入
+    \item \textbf{LLM多样性}：Gemini之外，集成了deepseek-R1-0528作为可选编程代理
+    \item \textbf{Chat UI\ADK WEB}：传统的聊天机器人GUI
+    \item \textbf{client 0-cost}：算是亮点，后面不够再加辅助记录参赛阵容、检测得分时间戳、总结违例违规等
+    \item \textbf{client 0-shot}：辅助记录参赛阵容、检测得分时间戳、总结违例违规等
 \end{enumerate}
 
 % 技术选型
 \section{技术选型}
-系统采用模块化技术栈满足专业篮球场景需求：
-
-\subsection{核心框架}
+由于本项目主旨为实践学习，我们技术选型的思路基本是：
 \begin{itemize}
-    \item \textbf{Google ADK}：多代理协作框架（根代理+子代理架构）
-    \item \textbf{Vertex AI RAG}：篮球专业知识库（战术手册/训练方法/伤病恢复）
-    \item \textbf{SQLite}：轻量级球员数据库（本地存储保障隐私）
+    \item \textbf{要有一定技术深度，但也要构建出有用的应用}
+    \item \textbf{要避免无意义造轮子，但也不能完全不去摸索}
 \end{itemize}
 
-\subsection{模型选型}
+基于上述思路，我们没有选择无代码开发，也没有选择用OpenAI API或者其他类似的大模型的SDK，而是决定用代理框架（Agent Framework）开发我们的应用。
+
+\subsection{系统框架}
+
+\subsection{核心技术}
+\begin{itemize}
+    \item \textbf{Google ADK}：多代理协作框架（根代理+子代理架构）
+    \item \textbf{Gemini}：核心多模态大模型系列
+    \item \textbf{Vertex AI RAG Engine}：云端RAG系统部署平台
+\end{itemize}
+
+
+\subsection{技术选型}
+\textbf{注：}DeepSeek和Qwen可能因为要透过Siliconflow访问所以无论用什么框架响应都比较慢。
 \begin{table}[h]
-\caption{模型选型对比}
+\caption{大模型选型对比}
 \label{model-selection}
 \centering
 \begin{tabular}{lccc}
 \toprule
-模型 & 使用场景 & 响应速度 & 专业深度 \\
+模型 & 多模态支持度 & 响应速度 & 费用 \\
 \midrule
-Gemini-1.5-Pro & 根代理路由 & 中等 & 极高 \\
-Gemini-2.0-Flash & 实时搜索 & 极快 & 高 \\
-DeepSeek-Coder & 战术板生成 & 慢 & 极高 \\
+Gemini-2.5-Flash & 高 & 较快 & 免费 \\
+DeepSeek-R1 & 低 & 慢 & 课程API_KEY \\
+Qwen3-32B & 低 & 较快 & 课程API_KEY \\
 \bottomrule
 \end{tabular}
 \end{table}
+综合篮球运动的特性最终选择了Gemini作为核心大模型。
 
-\subsection{工具链集成}
+\begin{table}[h]
+\caption{代理框架选型对比}
+\label{model-selection}
+\centering
+\begin{tabular}{lccc}
+\toprule
+模型 & 与gemini/Siliconflow兼容度 & 功能多样性 & 易用性 \\
+\midrule
+camel-ai & 低 & 高 & 较低 \\
+Google ADK & 较高 & 较高 & 较高 \\
+OpenAI Agent SDK & 未知 & 低 & 较高 \\
+\bottomrule
+\end{tabular}
+\end{table}
+综合考虑最终选择了ADK作为代理框架。
+
+最后，Vertex AI RAG Engine的选择主要与前面两项均选择了Google的技术有关。
+
+\subsection{其余工具链集成}
 \begin{itemize}
+    呃呃呃好像暂时并没有别的工具链
+    篮球专业知识库（规则手册/公众号/专业数据）
     \item \textbf{检索工具}：Google Search + Vertex RAG混合检索（top\_k=5）
     \item \textbf{安全工具}：关键词黑名单+LLM内容审查双防护
     \item \textbf{结构化输出}：Pydantic模型强制校验（TrainingPlanOutput等）
@@ -239,6 +279,7 @@ DeepSeek-Coder & 战术板生成 & 慢 & 极高 \\
         \item 数据管理代理：\texttt{player\_data\_agent} 访问球员数据库
         \item 训练计划代理：\texttt{training\_planner} 为球员制定训练计划
         \item 策略制定代理：\texttt{basketball\_tactic\_maker} 为球队指定策略
+        \item 视频处理代理：\texttt{basketball\_video\_proccessor} 复盘球赛视频
     \end{enumerate}
 \end{enumerate}
 
@@ -266,7 +307,8 @@ DeepSeek-Coder & 战术板生成 & 慢 & 极高 \\
     
     \item \textbf{检索增强生成(RAG)}：
     \begin{enumerate}
-        \item 专用篮球知识库：Vertex AI RAG实现语义检索
+        \item 配置：text-multilingual-embedding-002（google）、RagManaged vector store（向量数据库）、检索策略（不公开，应该与FAISS类似）
+        \item 专用篮球知识库：Vertex AI RAG实现语义检索()
         \item 混合搜索策略：Google Search与RAG检索互补
         \item 相似度阈值：\texttt{vector\_distance\_threshold=0.6}保证结果相关性
     \end{enumerate}
@@ -408,12 +450,19 @@ Temperature & Top\_p & 准确性 (\%) & 相关性 (\%) & 多样性 \\
 
 
 \subsection{系统架构设计}
-% \begin{figure}[h]
-% \centering
-% \includegraphics[width=0.9\linewidth]{asset/system_architecture.png}
-% \caption{多代理协作系统架构}
-% \label{fig:architecture}
-% \end{figure}
+
+\subsubsection{子代理之多代理系统}
+
+根-子代理形成中心型多代理系统架构。每个子代理在设计上根据其委派之工作进行了特殊设计。特别的，以下子功能进行了多代理系统的构建：
+
+\begin{enumerate}
+    \item 知识检索代理：四个代理组成，包括桥接代理、并行搜索代理、谷歌搜索代理、RAG搜索代理
+    \item 视频处理代理：五个代理组成，与知识检索代理构成相似。
+    \item 策略制定代理：三个代理组成，包括主代理、策略生成代理、玩家数据访问代理
+\end{enumerate}
+
+前两者主要针对费时的搜索进行了并行优化，最后者则是采用序列式工作流的设计来保护策略制定的合理性。
+
 
 \subsubsection{数据流管理}
 \begin{enumerate}
@@ -524,6 +573,22 @@ class TrainingPlanOutput(BaseModel):
 \end{tabular}
 \end{table}
 
+
+\begin{table}[h]
+\caption{大模型选型对比}
+\label{model-selection}
+\centering
+\begin{tabular}{lccc}
+\toprule
+模型 & 多模态支持度 & 响应速度 & 费用 \\
+\midrule
+Gemini-2.5-Flash & 高 & 较快 & 免费 \\
+DeepSeek-R1 & 低 & 慢 & 课程API_KEY \\
+Qwen3-32B & 低 & 较快 & 课程API_KEY \\
+\bottomrule
+\end{tabular}
+\end{table}
+综合篮球运动的特性最终选择了Gemini作为核心大模型。
 
 % 反思
 \section{反思}

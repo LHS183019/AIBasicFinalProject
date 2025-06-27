@@ -9,6 +9,7 @@ from .asistant_agents.guardrail import safety_input_agent
 from .asistant_agents.training import training_planner
 from .asistant_agents.tactic import basketball_tactic_maker
 from .asistant_agents.video import basketball_video_proccessor
+from .asistant_agents.multimodal import multimodal_agent
 from . import prompts as my_prompts
 from .config import GEMINI_MODEL, ENABLE_THOUGHT,SAFETY_SETTING
 
@@ -79,7 +80,7 @@ root_agent = Agent(
     ),
     include_contents="default",
     tools=[
-           FunctionTool(repeat_instruction),
+        #    FunctionTool(repeat_instruction),
            FunctionTool(get_handbook_of),
            FunctionTool(welcome_message),
            AgentTool(safety_input_agent),
@@ -87,12 +88,7 @@ root_agent = Agent(
            AgentTool(player_data_recorder),
            AgentTool(training_planner),
            AgentTool(basketball_tactic_maker),
-           AgentTool(basketball_video_proccessor)
+           AgentTool(basketball_video_proccessor),
+           AgentTool(multimodal_agent)
            ],
-    # tools=[agent_tool.AgentTool(google_search_agent),
-    #        agent_tool.AgentTool(safety_input_agent),
-    #        agent_tool.AgentTool(basketball_coach_browser),
-    #        agent_tool.AgentTool(player_data_recorder),
-    #        agent_tool.AgentTool(training_planner),
-    #        ],
 )        

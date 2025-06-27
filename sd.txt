@@ -1,0 +1,10 @@
+    \item 许诗雅
+    \begin{itemize}
+        \item 应用与技术选型
+        \item Agent架构设计图
+        \item Vertex AI RAG Engine服务搭建与key分配
+        \item search、tactic、video子代理
+        \item 多模态集成
+        \item 大模型安全
+        \item github repo维护
+    \end{itemize}

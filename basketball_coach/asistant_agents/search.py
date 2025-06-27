@@ -92,6 +92,7 @@ player_data_recorder = Agent(
         FunctionTool(add_player),
         FunctionTool(update_player),
         FunctionTool(delete_player),
+        FunctionTool(get_whole_database)
     ]
 )
 

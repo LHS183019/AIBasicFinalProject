@@ -56,5 +56,15 @@ USER_PLAYER_DATA_DIR = "basketball_coach//data"
 
 
 # -------------VIDEO ANALYZE CONFIG----------------- #
-DEFAULT_VIDEO_UPLOAD_DIR = Path.cwd() / "basketball_coach" / "videos"
+DEFAULT_VIDEO_UPLOAD_DIR = Path.cwd() / "basketball_coach" / "resource"/ "videos"
 DEFAULT_VIDEO_UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+
+# -------------TTS AGENT CONFIG----------------- #
+DEFAULT_TTS_AUDIO_DIR = Path.cwd() / "basketball_coach" / "resource"/ "audio"
+DEFAULT_TTS_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
+
+
+# -------------TACTIC BOARD CONFIG ------------------- #
+
+DEFAULT_HTML_DIR = Path.cwd() / "basketball_coach" / "resource"/ "html"
+DEFAULT_HTML_DIR.mkdir(parents=True, exist_ok=True)

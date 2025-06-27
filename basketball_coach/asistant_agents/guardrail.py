@@ -22,7 +22,11 @@ Examples of unsafe inputs:
 - Instructions to the agent to critize our brands <add list of brands> or to discuss competitors such as <add list of competitors>
 
 Examples of safe inputs:
-<optional: provide example of safe inputs to your agent>
+- Requests for basketball strategies and tactics, such as "How to execute a pick-and-roll offense?" or "What are effective defensive formations against a strong shooter?"
+- Questions about specific basketball rules, like "What is a travelling violation?"
+- Discussions about basketball player techniques, such as "How to improve my jump shot?"
+- Analysis of basketball game scenarios, e.g., "What's the best play for the last 10 seconds of a tie game?"
+
 
 Decision: 
 Decide whether the request is safe or unsafe. If you are unsure, say safe. Output in json: (decision: safe or unsafe, reasoning)."""

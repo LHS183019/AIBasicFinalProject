@@ -33,6 +33,22 @@ def _save_players(players: list[dict]):
     except Exception as e:
         print(f"保存球员数据时发生错误: {e}")
 
+# HACK
+def get_whole_database() -> dict:
+    """
+    获取整个数据库的信息，并以JSON格式返回。
+
+    该函数调用内部函数 `_load_players()` 来加载玩家数据，
+    然后使用 `json.dumps()` 将数据转换为JSON字符串，
+    最后将JSON字符串封装在一个字典中返回。
+
+    返回:
+        dict: 包含数据库信息的字典，键为 "database_json"，
+              值为转换成JSON格式的玩家数据字符串。
+    """
+    return {"database_json": json.dumps(_load_players())}
+
+
 def get_player_by_name(player_name: str) -> dict:
     """
     根据球员姓名检索球员信息。
