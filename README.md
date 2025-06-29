@@ -163,17 +163,14 @@
 
 #### 环境配置
 
-**第一步：下载我们的repo至您的电脑**
+**第一步：下载我们的源代码至您的电脑**
 
-```bash
-git clone https://github.com/YourUsername/AIBasicFinalProject.git
-cd AIBasicFinalProject
-```
+[下载最新试用版](https://github.com/LHS183019/AIBasicFinalProject/releases/download/v1.4.1/v1.4.1-release.zip)并解压缩
 
-+ 您也可以用其他非CLI的方式下载
+然后透过命令行切换到我们的根目录：
 
 ```yaml
-AIBasicFinalProject/   <-- 您应该在此目录
+GlideHoop/   <-- 您应该在此目录
 ├── basketball_coach/       
 │   ├── __init__.py         
 │   └── agent.py            
@@ -189,6 +186,20 @@ AIBasicFinalProject/   <-- 您应该在此目录
 
 
 <details open>
+<summary><b>使用 <code>conda</code></b></summary>
+
+```bash
+# 这将创建一个名为 'glidehoop' (名称可自定义) 的新环境，并安装 Python 3.11。
+conda create -n glidehoop python=3.11
+
+conda activate glidehoop
+```
+激活后，您的终端提示符前会显示 `(glidehoop)`，表明您已成功进入虚拟环境！
+
+</details>
+
+
+<details>
 <summary><b>使用 <code>venv</code></b></summary>
 <br>
 
@@ -211,18 +222,6 @@ source .venv/bin/activate
 
 </details>
 
-<details>
-<summary><b>使用 <code>conda</code></b></summary>
-
-```bash
-# 这将创建一个名为 'glidehoop' (名称可自定义) 的新环境，并安装 Python 3.11。
-conda create -n glidehoop python=3.11
-
-conda activate glidehoop
-```
-激活后，您的终端提示符前会显示 `(glidehoop)`，表明您已成功进入虚拟环境！
-
-</details>
 
 <br>
 
@@ -242,7 +241,7 @@ pip会自动下载所有的依赖项，需要一些等待时间
 
 您需要在根目录配置一个命名为`.env`的文件：
 ```yaml
-AIBasicFinalProject-main/   
+GlideHoop/   
 ├── basketball_coach/       
 │   ├── __init__.py         
 │   └── agent.py            
@@ -264,7 +263,7 @@ RAG_CORPUS = "projects/basketball-coach-rag/locations/us-central1/ragCorpora/453
 然后把您在前面申请到的key，替换掉`service_key.json`中的内容。
 
 ```yaml
-AIBasicFinalProject-main/   
+GlideHoop-main/   
 ├── basketball_coach/       
 │   ├── __init__.py
 │   ├── agent.py         
@@ -277,7 +276,7 @@ AIBasicFinalProject-main/
 #### 启动对话！
 
 ```yaml
-AIBasicFinalProject-main/   <-- 在此目录中
+GlideHoop/   <-- 在此目录中
 ├── basketball_coach/       
 │   ├── __init__.py         
 │   └── agent.py            
