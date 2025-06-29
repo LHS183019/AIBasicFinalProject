@@ -15,7 +15,7 @@
 
 [page-image]: https://img.shields.io/badge/Page-know_more-black?style=flat-square
 [License-image]: https://img.shields.io/github/license/LHS183019/AIBasicFinalProject?style=flat-square&color=brown
-[Releases-image]: https://img.shields.io/github/v/release/LHS183019/AIBasicFinalProject?include_prereleases&sort=semver&color=orange&label=Latest%20Pre-release
+[Releases-image]: https://img.shields.io/github/v/release/LHS183019/AIBasicFinalProject?include_prereleases&sort=semver&color=orange&label=Pre-release
 [Installation-image]: https://img.shields.io/github/downloads/LHS183019/AIBasicFinalProject/total?style=flat-square&color=blue
 [PythonVersion-image]: https://img.shields.io/badge/Python-3.11-yellow?style=flat-square&labelColor=blue
 [report-image]: https://img.shields.io/badge/Tech_report-download-black?style=flat-square
