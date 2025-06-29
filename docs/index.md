@@ -124,6 +124,7 @@ basketball_coach/
         "notes": "Prolific goal scorer."
     }
 ]
+```
 
 ### 3. 通过 AI 助手维护资料库（推荐方式）
 
@@ -169,3 +170,5 @@ basketball_coach/
 
 ---
 
+## 待修复的问题
++ 本地球员资料库Agent的prompt及players.json键值对设置与其他功能适配性待修复
