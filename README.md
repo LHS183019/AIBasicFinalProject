@@ -15,7 +15,7 @@
 
 [page-image]: https://img.shields.io/badge/Page-know_more-black?style=flat-square
 [License-image]: https://img.shields.io/github/license/LHS183019/AIBasicFinalProject?style=flat-square&color=brown
-[Releases-image]: https://img.shields.io/github/v/release/LHS183019/AIBasicFinalProject?style=flat-square
+[Releases-image]: https://img.shields.io/github/v/release/LHS183019/AIBasicFinalProject?style=flat-square/releases/latest
 [Installation-image]: https://img.shields.io/github/downloads/LHS183019/AIBasicFinalProject/total?style=flat-square&color=blue
 [PythonVersion-image]: https://img.shields.io/badge/Python-3.11-yellow?style=flat-square&labelColor=blue
 [report-image]: https://img.shields.io/badge/Tech_report-download-black?style=flat-square
@@ -59,60 +59,88 @@
 
 <details>
   <summary><b>拟人化Agent助手！</b></summary>
-+ 将为您的GlideHoop团队赋予有趣的人格设置
-+ 修复Agent回答风格不一致问题体验
+
+  + 将为您的GlideHoop团队赋予有趣的人格设置
+  + 修复Agent回答风格不一致问题体验
 </details>
 
 <details>
   <summary><b>WNBA, NBA百科全书</b></summary>
+  
   + 为我们的search browser接入balldontlie API，提供更专业的球星百科
   + 为我们的search browser更新对Basketball Reference等网站的Web search功能，实时提供球星资讯
 </details>
 
 <details>
   <summary><b>球鞋选购👟</b></summary>
+  
   + 更新RAG语料库，提供专业选购意见
 </details>
 
 ---
 ## ✨ 功能演示
-<!-- 
+
 <details open>
-  <summary><b>🚀 用户注册与登录</b></summary>
-  <p>这是一个简短的 GIF，演示了用户如何快速注册新账户并登录系统。</p>
-  <p align="center">
-    <img src="images/demo-signup-login.gif" alt="用户注册与登录演示" width="600">
-  </p>
+  <summary><b> 🤔Hi~我对某个术语感到困惑</b></summary>
+
+  ![ask agent](asset/vshow1.gif)
+
+  👨‍💻 让我们调用专用的browser查资料
+
+  ![agent draw pic](asset/vshow2.gif)
+
+  👩‍🎨 并让小教练为您画张图解
+
 </details>
 
 <details>
-  <summary><b>📝 创建与编辑任务</b></summary>
-  <p>该 GIF 展示了任务的创建、编辑、标记完成以及删除操作。</p>
-  <p align="center">
-    <img src="images/demo-create-edit-task.gif" alt="创建与编辑任务演示" width="600">
-  </p>
+  <summary><b>😵能帮忙备忘一下 球队大家的球风吗</b></summary>
+
+  ![agent manage database](asset/vshow3.gif)
+
+  👨‍🏭 可以的可以的，我们有可靠的球员资料管理员！
 </details>
 
 <details>
-  <summary><b>📊 数据可视化仪表盘</b></summary>
-  <p>此视频演示了用户如何通过交互式仪表盘查看项目数据的统计分析。</p>
-  <p align="center">
-    <img src="images/demo-dashboard.gif" alt="数据可视化仪表盘演示" width="600">
-  </p>
+  <summary><b>🏋️ 教练我想要涨球</b></summary>
+
+  ![agent plan training](asset/vshow4.gif)
+
+  🏃来了~
+
 </details>
 
 <details>
-  <summary><b>更多功能演示...</b></summary>
-  <p>等等，还有更多演示...</p>
-  <p align="center">
-    <img src="images/demo-another-feature.gif" alt="更多功能演示" width="600">
-  </p>
+  <summary><b>🎞️ 视频复盘 标记精彩瞬间</b></summary>
+
+  ![agent whatching vid](asset/vshow5.gif)
+
+  让我们为您扒出关键时刻，这样节省出来的时间就能观看第二条影片了~
+
+
 </details>
 
-### 更多功能 -->
 
-<!-- * [完整功能说明](FEATURES.md) -->
-* [演示&讲解视频](https://your-project-demo.com)
+<details>
+  <summary><b>🧠 帮帮忙想想战术吧</b></summary>
+
+  ![agent drawing strategy](asset/vshow6.gif)
+
+  🧑🏻‍🏫 没问题！当您的球队对上对方球队，又会诞生什么样的战术火花呢？（会结合您的本地资料库进行分析）
+
+</details>
+
+<details>
+  <summary><b>更多功能...</b></summary>
+
+  等等，还有更多...
+  * [完整功能说明](https://lhs183019.github.io/AIBasicFinalProject/)
+
+  + 或者，您还有什么建议！欢迎向我们提出
+
+</details>
+
+
 
 
 ## 🆓申请试用（完全免费）
