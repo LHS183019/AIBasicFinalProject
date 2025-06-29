@@ -181,7 +181,7 @@ Currently, GlideHoop's compatibility with other Python versions is not confirmed
 ```bash
 # This will create a folder named '.venv' in the current project root directory.
 # Make sure you are in the project root directory (e.g., GlideHoop/).
-python3.11 -m venv .venv
+python3.11 -m venv .venv # or py -3.11 -m venv .venv
 
 # Activate the virtual environment
 # After activation, your terminal prompt will show '(.venv)', indicating you've successfully entered the virtual environment.
