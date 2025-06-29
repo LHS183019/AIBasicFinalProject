@@ -303,7 +303,7 @@ adk将会在本地设置伺服器，最后会打印设置信息，包括本地�
 
 您还可以在CLI中运行我们的Agent，只需要把`adk web`改为：
 ```bash
-adk run multi_tool_agent
+adk run basketball_coach
 ```
 + **注意**：并不推荐使用CLI运行，因为我们还没有做此模式下的功能兼容性完善
 
