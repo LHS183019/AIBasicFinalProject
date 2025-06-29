@@ -1,12 +1,63 @@
-# GLIDEHOOP 用户手册
+# GlideHoop 用户手册 (English is not supported yet)
 
 ## 还在维护中！将尽快完善
 
 * [演示&讲解视频](https://www.bilibili.com/video/BV1bvKrzwE2g/?share_source=copy_web&vd_source=128df80febd7972909ce93d6aa205f07)
 
 ## ADK WEB 的使用方式
-+ 可以透过adk web右上角的export来保留对话记录
-+ 可以透过session tab来查看历史对话
++ 查看历史对话：点击左方panel中的 session tab
++ 汇出对话记录：
+  + 透过右上角的export图标汇出（但暂时无法在gui中恢复）
+  + 点击左方panel中的 eval tab -> 建立eval集 -> 将对话保存至eval集
+
+## 影片分析功能使用指南
+
+### 影片上传
+```yaml
+basketball_coach/   
+├── resource/       
+│   ├── videos/     <-- 在此目录上传您的视频（目录会自动创建）  
+│   └── html/            
+├── __init__.py        
+└── agent.py                    
+```
+
+### 影片分析
+在对话中，需要明确交代待分析的影片的档案名称。你可以透过提问如“目前我都上传了哪些影片”来让Agent返回档案名称。
+
+我们支持三种分析：球队球员构成、得分、违例违规（如果没有指定的话，Agent会自动生成一个包含三样内容的概括性分析）
+
+**注意：**目前的生成结果并不完全可靠，尤其容易混淆球员，需要人工检查。在判断得分时间戳上相对可靠。
+
+## 战术生成功能使用指南
+
+### 生成战术
+
+#### 默认前置要求
+
+需要您提供至少五位球员的基本信息（姓名、球号、位置），可以直接键入或来自球员数据库，否则Agent会辅助你完成资料的建立
+
+#### 跳过前置要求
+
+您可以向她明确说明“随机分配xx部分的内容”，来跳过资料设置的步骤
+
+
+### 战术可视化
+
+#### 启用可视化
+
+在对话中，明确指出需要可视化即可
+
+#### 结果保存
+```yaml
+basketball_coach/   
+├── resource/       
+│   ├── videos/         
+│   └── html/       <-- 在此目录可以看到战术板生成结果（目录会自动创建）   
+├── __init__.py        
+└── agent.py                    
+```
+
 
 
 ## 球员资料库维护指南
@@ -22,6 +73,15 @@
 您的球员资料库文件位于项目根目录下的 `data/` 文件夹内，文件名为 `players.json`。
 
 例如：`your_project_folder/data/players.json`
+
+```yaml
+basketball_coach/   
+├── data/       
+│   └── players.json      <-- 您的资料库
+├── __init__.py        
+└── agent.py                    
+```
+
 
 ### 2. 资料库结构与字段定义
 
