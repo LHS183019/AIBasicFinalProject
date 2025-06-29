@@ -1,8 +1,8 @@
 {
   "type": "service_account",
   "project_id": "basketball-coach-rag",
-  "private_key_id": "69b9b7c59e54bd356aaeaf989d0d170d7f69c219",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCN6MrH3AUbsbNV\nFPRaMjiKB44vq3kzvYn0G4pywBaPffxkFZ41JfHBI7RVBCFr50YYhkEX9sVGMmDg\nN3AOF8yWefNkwH+XTvg2mx5ziDY48Z8lm58fA7o2xTS/dGChspm4aFbeNNMwmik5\nCL2X3XoQuxTBQ4piWnSkK02xMzfoN+sEhKxSZ9JkFhq2TrIgrB9xdiRa5Xz/P799\nm3cFC0RasscF+MHXhKLE1zZ4E4WAfo9LJD0J82BI2oEycE2DoHqDZVpsNX+FXEMf\nGaCIdob6rlyT/nWqWT9VmwiE7r49//N8VwCNFOob0WfmWhKo6y04asd7DufOHIHm\nYZV4eFHXAgMBAAECggEADej7t4uBlK1efsCHEzBJCn6jGVkdkEzL8PmiII1jqL0Y\nuFbGIz+M6vms+4hkHkeVP2Ipj0fJHpBhnpjQixEaJMXfbcjQuOwsuG2MFpcLeZl1\nmCIg/tFGt4etG/c0YaU4HDNeEHntGZ6C2+xXaUN0a59q8WbFcc6cEFuOSghTOpfb\nN85yqMlxy4aqdv0wCRH3gZ2KVV/wK4tK2FcOChIOQodScuzD1ND6jg5zADyvIJZL\nP8zlKyeMjjgBObsEK77xSV/0Mwn+IzJpYSfgPmZDtb2zuQVUXOmcqfMcA4/BhgDq\nSoIfb5Wbrb5Jy0n0PTEphWZiSLz4/FMew8yCm2SuAQKBgQDENJjo8gH1dibm9dwr\nLTnUPGQuGnGnQQYFfUsnnyX/FrO91Ulbvd5lGk8NgkMx3MPujO75UwUNrhBmFxcE\n85emGP4TL+fZcjHingkL7DctABrINjOzsJJaNx/cjHve9/4dnNKvzGHHKFXddDoz\n9uQ4MvwgBDfDXxSbfXQwTWRZtwKBgQC5KCnU8Pi6noigjrpMCqOvfOs6rbY+fbBi\n0qYiFTv4436tmo8/x9f/20TZoVfYDVsnCR8RqQjLhT9ytXspDOG8LIGEU6XpIsPb\nvUTPBTGPDz4U5T3zTRDLeQfYfycc5FsWxdYrtBC8KZnYfXO7+tFzAZxBe1VR+Jc9\nKvLg3kZI4QKBgFLf7J6oak9mIrR3sRHDvqN5Bs+6d7sv6f0zmSUZQhFnY3CRwLSx\nlFicLjwEg6FyIIiImwBRItdOaLrWkfCTe8C62cb8+y+L3qpcGnIgyoWFf8qFqn0B\n3i+hDSI5bLEXiwyzCwMaj0pyLSKnT1ZXuLpMPta/MVaiuK+c5BDq/7ItAoGABAak\nijXHIr+pttwDnv2oO3ua3cbDLK6s9CkiZaFSkYHY0kuHC9r7jlulLpo8f70im0Gu\nhELJpys5ivP5PpZCHkZVdpwfAme4HIIMCfhR8ItjTS8C3tRxJgt2qTVyk0U/2cnp\ncz/SEVVSPAvWRWMZxMdnL2FQJJ0kJLdXWp5apuECgYB8SGNr22LNrmSFL2hyhYS3\nQdvgkFKv8VU8DOToN0Mb3NqaaB3d3FoS55a0Y5j+aKrxZKsaEzgbaqbaMcB/XZZ2\no+bHr1OCKc9OsYIC/u9JNyTgTeyBgyshJ/o05qcPdJg3UXST7aeDNHODD/p9K+RC\nvKk3iYHJ65k0TMIRGCAy9g==\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "",
+  "private_key":"",
   "client_email": "vertex-ai-rag-service@basketball-coach-rag.iam.gserviceaccount.com",
   "client_id": "114644715514271721381",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
