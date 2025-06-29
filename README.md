@@ -207,7 +207,7 @@ conda activate glidehoop
 
 ```bash
 # 这将在当前项目根目录下创建一个名为 '.venv' 的文件夹
-python3.11 -m venv .venv
+python3.11 -m venv .venv # 或者py -3.11 -m venv .venv
 
 # macOS / Linux 用户请执行：
 source .venv/bin/activate
