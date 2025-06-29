@@ -51,7 +51,7 @@ RAG_TOP_K = 5
 RAG_DISTANCE_THRESHOLD = 0.6
 
 # -------------USER PLAYER DB CONFIG----------------- #
-USER_PLAYER_DATA_FILE = "basketball_coach//data//test_players.json"
+USER_PLAYER_DATA_FILE = "basketball_coach//data//players.json"
 USER_PLAYER_DATA_DIR = "basketball_coach//data"
 
 
@@ -65,6 +65,5 @@ DEFAULT_TTS_AUDIO_DIR.mkdir(parents=True, exist_ok=True)
 
 
 # -------------TACTIC BOARD CONFIG ------------------- #
-
 DEFAULT_HTML_DIR = Path.cwd() / "basketball_coach" / "resource"/ "html"
 DEFAULT_HTML_DIR.mkdir(parents=True, exist_ok=True)

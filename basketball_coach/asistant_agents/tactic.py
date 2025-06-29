@@ -40,20 +40,6 @@ deepseek_code_agent = Agent(
 
 import os
 
-def file_name_check(file_path: str):
-    if not os.path.isabs(file_path):
-        potential_file_path = DEFAULT_HTML_DIR / file_path
-    else:
-        return file_path
-    if potential_file_path.exists():
-        actual_file_path = str(potential_file_path)
-    else:
-        # 如果默认路径下没有，再考虑是不是用户真的就想说文件名而不是路径
-        # 或者此时应该要求用户提供完整路径
-        actual_file_path = file_path # 保持原样，让list_supported_video_files去检查
-    return actual_file_path
-
-
 # helper function
 def save_html(html_content: str, file_name: str) -> dict:
     """
@@ -71,15 +57,15 @@ def save_html(html_content: str, file_name: str) -> dict:
     """
     if not file_name.lower().endswith(".html"):
         file_name += ".html"
-    file_path = file_name_check(file_name)
+    file_path = DEFAULT_HTML_DIR / file_name
 
     try:
         with open(file_path, "w", encoding="utf-8") as f:
             f.write(html_content)
         return {
             'success': True,
-            'file_path': file_path,
-            'message': f"HTML content saved to {file_path}"
+            'file_path': str(file_path),
+            'message': f"HTML content saved to {str(file_path)}"
         }
     except Exception as e:
         return {

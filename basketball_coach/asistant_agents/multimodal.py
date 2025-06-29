@@ -51,61 +51,29 @@ import wave
 from google.adk.tools.agent_tool import AgentTool
 from ..config import DEFAULT_TTS_AUDIO_DIR
 
-def file_name_check(file_path: str):
-    if not os.path.isabs(file_path):
-        potential_file_path = DEFAULT_TTS_AUDIO_DIR / file_path
-    else:
-        return file_path
-    if potential_file_path.exists():
-        actual_file_path = str(potential_file_path)
-    else:
-        # 如果默认路径下没有，再考虑是不是用户真的就想说文件名而不是路径
-        # 或者此时应该要求用户提供完整路径
-        actual_file_path = file_path # 保持原样，让list_supported_video_files去检查
-    return actual_file_path
+# def file_name_check(file_path: str):
+#     if not os.path.isabs(file_path):
+#         potential_file_path = DEFAULT_TTS_AUDIO_DIR / file_path
+#     else:
+#         return file_path
+#     if potential_file_path.exists():
+#         actual_file_path = str(potential_file_path)
+#     else:
+#         # 如果默认路径下没有，再考虑是不是用户真的就想说文件名而不是路径
+#         # 或者此时应该要求用户提供完整路径
+#         actual_file_path = file_path # 保持原样，让list_supported_video_files去检查
+#     return actual_file_path
 
 
 def save_wave_file(filename, pcm, channels=1, rate=24000, sample_width=2):
-    filename = file_name_check(filename)
+    filename = DEFAULT_TTS_AUDIO_DIR / filename
     with wave.open(filename, "wb") as wf:
       wf.setnchannels(channels)
       wf.setsampwidth(sample_width)
       wf.setframerate(rate)
       wf.writeframes(pcm)
 
-# async def send_tts_request(content:str, tool_context: 'ToolContext') -> dict:
-#     """TTS(text to speech), generate audio based on the content provided."""
-#     try:
-#         response = client.models.generate_content(
-#         model="gemini-2.5-flash-preview-tts",
-#         contents=content,
-#         config=types.GenerateContentConfig(
-#             response_modalities=["AUDIO"],
-#             speech_config=types.SpeechConfig(
-#                 voice_config=types.VoiceConfig(
-#                     prebuilt_voice_config=types.PrebuiltVoiceConfig(
-#                     voice_name='Kore',
-#                     )
-#                 )
-#             ),
-#         )
-#         )
-#         data = response.candidates[0].content.parts[0].inline_data.data # type: ignore
-#         await tool_context.save_artifact(
-#                 'tts.wav',
-#                 types.Part.from_bytes(data=(data), mime_type='audio/wav'), # type: ignore
-#             )
-
-#     except Exception as e:
-#         return {"error": f"Error occur when sending tts request {e}"}
-#     else:
-#         return {
-#         'status': 'success',
-#         'detail': 'TTS audio generated successfully and stored in artifacts.',
-#         'filename': 'tts.wav'
-#     }
-    
-def send_tts_request(file_name:str,content:str, tool_context: 'ToolContext') -> dict:
+async def send_tts_request(content:str, tool_context: 'ToolContext') -> dict:
     """TTS(text to speech), generate audio based on the content provided."""
     try:
         response = client.models.generate_content(
@@ -123,12 +91,44 @@ def send_tts_request(file_name:str,content:str, tool_context: 'ToolContext') -> 
         )
         )
         data = response.candidates[0].content.parts[0].inline_data.data # type: ignore
-        
-        save_wave_file(file_name_check(file_name), data) # Saves the file to current directory
+        await tool_context.save_artifact(
+                'tts.wav',
+                types.Part.from_bytes(data=(data), mime_type='audio/wav'), # type: ignore
+            )
 
-        return {"status":"success","file_path":f"{file_name_check(file_name)}"}
     except Exception as e:
         return {"error": f"Error occur when sending tts request {e}"}
+    else:
+        return {
+        'status': 'success',
+        'detail': 'TTS audio generated successfully and stored in artifacts.',
+        'filename': 'tts.wav'
+    }
+    
+# def send_tts_request(file_name:str,content:str, tool_context: 'ToolContext') -> dict:
+#     """TTS(text to speech), generate audio based on the content provided."""
+#     try:
+#         response = client.models.generate_content(
+#         model="gemini-2.5-flash-preview-tts",
+#         contents=content,
+#         config=types.GenerateContentConfig(
+#             response_modalities=["AUDIO"],
+#             speech_config=types.SpeechConfig(
+#                 voice_config=types.VoiceConfig(
+#                     prebuilt_voice_config=types.PrebuiltVoiceConfig(
+#                     voice_name='Kore',
+#                     )
+#                 )
+#             ),
+#         )
+#         )
+#         data = response.candidates[0].content.parts[0].inline_data.data # type: ignore
+        
+#         save_wave_file(file_name_check(file_name), data) # Saves the file to current directory
+
+#         return {"status":"success","file_path":f"{file_name_check(file_name)}"}
+#     except Exception as e:
+#         return {"error": f"Error occur when sending tts request {e}"}
 
 
     

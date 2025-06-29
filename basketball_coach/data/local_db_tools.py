@@ -3,6 +3,8 @@ import json
 import os
 from ..config import USER_PLAYER_DATA_DIR, USER_PLAYER_DATA_FILE
 
+# TODO: introduce more function to allow more flexible operation
+
 def _load_players() -> list[dict]:
     """
     加载所有球员数据。如果文件不存在或为空，返回空列表。

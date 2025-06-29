@@ -1,0 +1,21 @@
+出于应用安全和用户便利性（指无需透过gcloud等登录谷歌账号等），我们的各种服务启用一种JWT验证。
+
+以下是我们为您提供的json key，请用下面的内容替换掉`service_key.json`
+
+
+{
+  "type": "service_account",
+  "project_id": "basketball-coach-rag",
+  "private_key_id": "20c61e852bb27d61fa96db47dc436a165441aa85",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgLiUvNeQ4VgS9\nK7J5vMLHuwxPhYTTik7nI6M7kTbAsgWWNCFhNctXFvgHjB+Wk2Jht2IoNqTIk3af\nfC7GY/EIcLCerYnhGH4lhoqGA+ShjuyafGR7ch1VY0gXLkvi/In7rWcSdA51WiRz\nKzOK5OXwFezu7gZHx+0VJkr9QTwqEonBMTf4esmTriry4lY+BRXacPy1WhRmVcuL\n1W1JXM/7ZxPFvvV7G7ZEOVXX//Zxe9Eok/ZeGu+AnOWPtoDSlUvwuNLZikxyTihf\nkZTqlmk+W7UmJW2XhKRiCwV3ntSyH2N6ArY6wEmDAuSI9TG3FShb4BoA4sBVod7K\nXpCm6nJpAgMBAAECggEAGxw0Ru1EFxTX8Hx41InSHaPWzY63kGYUPKKXefl13t9C\nes2P6LgGFlNY304j+oQvXoJ/Jnc5JIlwxkVqVUGNBfSsr+6HK4XNs+Q1hcEa7Q0X\nln3/M7V4qX8IMIQxa9V6NRKAI2tpFwuOp79kFdnv4NaVJ0s53ORFiBLXFk34NNZx\neUeiMSwuypyNqQlALJUSTD0ANzG5XdL2qKz2+tw0rAgU1RN/uv+5PXnpar4xmJO7\nAduENcobOo3vdmtfPu7O+8C0oEgRiQl/ft9bqX/lgZ0qEOlyBiv7dAiAvUXGBPCv\nKFj4jgAy2sRMFjmekiAy+3hJEqVNcqPKBq2UjssPUQKBgQDgdMeOqGWBhBD+2i0a\nA/nTKaJIM1XEQQ+N0VG1B4BZgrO+Gy7kjbi8qc5PqKeEiMe4zDV8O4q9G7+eozV/\nUDW5s8hgengpojryfGQ3uKJ4vSrd7fckBR4MXgsJMHVl2WnYJhNcpqlyI+UuJXQm\nbtLc4TzcJaDM8R3iWw3SkzEOCwKBgQC2sOweuUWQpsFDO1pF+GBnfuEQ6huQgJHu\nb2AvWkCMEZAkKBvRclaZSXlb7xnAr29raTxFe7CTxmsf3WP6t4BkeytWYEFE2lhA\nrh7PvjIAKfrvFQTEu+XdKXt9e7m+XNjmbDY63Cw9ULvhiSF5yzIFaq70HlGM64ym\nD1AdKCKt2wKBgQC4U66+HNSfNBGw+QMo5jL3kq1OlbnNXZCkak2rWOmymH97k19D\nGo+nf9uJ13sagClkPW9/AnbBLlSCto1sbDZyto3LjUe5CR1XnYe/qsTiWpclghL/\nZaRzi5eMiFsgtRcTBtHHuKZWsdu3tdJY7ZIFCoOsVspjA3ADP7tuPqp+WQKBgQCM\nhHiZCRggsqJj+/rrZqd/829ZezfIZZvZMYFh6qFLGxcrOE5tQuyo6oKV28qLEmU4\n0LCzIPgoMa2jzL1h0lLG9pXW0iJhuy+2UDcSws/ioGeKDTiluYCMI6QAWHH9oZyT\nXxg3HbJJVxer2bYN3+SRlgULb2Z6ZZLBB3Yvdvd1kQKBgAdTT0xXl0LM6U96ASWA\nm2tRJmLF5VCC6iFkHAke2g5jA0GR2GJJRQYOOd7OLhAHnMAwxs2a3vaRCwXXY+H9\nYDkMuJT/q4MPObhgtQNf5J2SzjtcNNCI9mAQYaDcIMVHq30YgTf0dcfPfGN/afgr\nxZMq0PKYIbO4iWELGjfzdFB5\n-----END PRIVATE KEY-----\n",
+  "client_email": "vertex-ai-rag-service@basketball-coach-rag.iam.gserviceaccount.com",
+  "client_id": "114644715514271721381",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/vertex-ai-rag-service%40basketball-coach-rag.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
+
+
+注意，这个key一旦被检测泄露在公共领域（如github公共repo），就会自动失效。

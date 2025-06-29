@@ -23,6 +23,8 @@
 \usepackage{booktabs} % for professional tables
 \usepackage{listings}
 \usepackage{makecell}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning, calc, trees, fit}
 
 % hyperref makes hyperlinks in the resulting PDF.
 % If your build breaks (sometimes temporarily if a hyperlink spans a page)
@@ -72,6 +74,7 @@
 \usepackage{xcolor}
 \usepackage{inconsolata} % 专业等宽字体
 \usepackage{tcolorbox}
+\usepackage{titling}
 \tcbuselibrary{breakable} % 支持跨页文本框
 \tcbuselibrary{skins}     % 更多样式选项
 
@@ -129,12 +132,13 @@
 
 % The \icmltitle you define below is probably too long as a header.
 % Therefore, a short form for the running title is supplied here:
-\icmltitlerunning{Submission and Formatting Instructions for ICML 2025}
+\icmltitlerunning{google adk for basketball agent}
 
 \begin{document}
 
 \twocolumn[
-\icmltitle{人工智能基础大作业\ 篮球agent}
+\icmltitle{人工智能基础大作业}
+% \title{人工智能基础大作业}
 
 %示例，根据自己的背景更改
 \begin{icmlauthorlist}
@@ -177,28 +181,38 @@
     \item \textbf{篮球影片复盘}：辅助记录参赛阵容、检测得分时间戳、总结违例违规等
 \end{enumerate}
 
-本项目通过搭建RAG知识库、配置用户个性化信息库、构造多代理子系统来和优化提示词以实现上述功能。
+本项目通过搭建RAG知识库、配置用户个性化信息库、构造多代理子系统以实现上述功能。
 除了核心功能，我们还拥有下列功能/特性：
 
 \subsection{非功能需求}
 \begin{enumerate}
-    \item \textbf{大模型安全防护机制}：指令注入防护和过滤有害内容（暴力/赌博等）：使用Agent作为Gr
-    \item \textbf{流式响应}：用户可在图形用户界面上选择开启/关闭流式响应
-    \item \textbf{输入输出结构化}：部分多代理系统内部交互，以及训练计划/战术方案输出采用JSON标准化格式
-    \item \textbf{青少年适用性}：制定年龄适配规则（如激励语气设定、12岁以下球员训练量≤60分钟/天）
-    \item \textbf{多模态输入输出}：除文字交互外，透过大模型协助实现图片、语音输出及图片、视频输入
-    \item \textbf{LLM多样性}：Gemini之外，集成了deepseek-R1-0528作为可选编程代理
-    \item \textbf{Chat UI\ADK WEB}：传统的聊天机器人GUI
-    \item \textbf{client 0-cost}：算是亮点，后面不够再加辅助记录参赛阵容、检测得分时间戳、总结违例违规等
-    \item \textbf{client 0-shot}：辅助记录参赛阵容、检测得分时间戳、总结违例违规等
+    \item \textbf{大模型安全防护机制}：指令注入防护和过滤有害内容（暴力/赌博等）
+    \item \textbf{用户交互体验}：
+    \begin{itemize}
+        \item 流式响应：用户可在图形用户界面上选择开启/关闭流式响应
+        \item 图形交互支持：提供ADK WEB聊天机器人GUI
+        \item 多模态输入输出：透过多模型协助，实现了HTML、图片、语音输出及图片、视频输入
+    \end{itemize}
+    \item \textbf{相关内容专业性、准确性}：
+    \begin{itemize}
+        \item 输入输出结构化：透过输入输出结构化，部分多代理系统内部交互，以及训练计划/战术方案输出采用JSON标准化格式
+        \item 个性化适用性：配置本地用户资料库、制定年龄适配规则（如激励语气设定、12岁以下球员训练量≤60分钟/天）、配置用户个性化信息库
+        \item 回复专业性：RAG增强检索和提示词优化
+        \item LLM多样性：如集成了deepseek-R1-0528作为可选编程代理，提供更准确的编程输出
+    \end{itemize}
+    \item \textbf{用户惰性}：
+    \begin{itemize}
+        \item 0-cost：基于Gemini免费API，用户端只需注册API，无需额外付费
+        \item 0-shot：Gemini 2.5 flash驱动，上万字Agent提示词优化，用户可以无需提示词操作来与应用对话
+    \end{itemize}
 \end{enumerate}
 
 % 技术选型
 \section{技术选型}
 由于本项目主旨为实践学习，我们技术选型的思路基本是：
 \begin{itemize}
-    \item \textbf{要有一定技术深度，但也要构建出有用的应用}
-    \item \textbf{要避免无意义造轮子，但也不能完全不去摸索}
+    \item \textbf{要有一定技术深度，摸索Agent搭建的不同面向}
+    \item \textbf{要构建出真正有用的应用，避免无意义造轮子}
 \end{itemize}
 
 基于上述思路，我们没有选择无代码开发，也没有选择用OpenAI API或者其他类似的大模型的SDK，而是决定用代理框架（Agent Framework）开发我们的应用。
@@ -221,15 +235,15 @@
 \centering
 \begin{tabular}{lccc}
 \toprule
-模型 & 多模态支持度 & 响应速度 & 费用 \\
+模型 & 多模态支持度 & 响应速度\\
 \midrule
-Gemini-2.5-Flash & 高 & 较快 & 免费 \\
-DeepSeek-R1 & 低 & 慢 & 课程API_KEY \\
-Qwen3-32B & 低 & 较快 & 课程API_KEY \\
+Gemini-2.5-Flash & 高 & 较快 \\
+DeepSeek-R1 & 低 & 慢 \\
+Qwen3-32B & 低 & 较快 \\
 \bottomrule
 \end{tabular}
 \end{table}
-综合篮球运动的特性最终选择了Gemini作为核心大模型。
+综合篮球运动的特性最终选择了Gemini作为核心大模型。\cite{gemini2023}
 
 \begin{table}[h]
 \caption{代理框架选型对比}
@@ -237,7 +251,7 @@ Qwen3-32B & 低 & 较快 & 课程API_KEY \\
 \centering
 \begin{tabular}{lccc}
 \toprule
-模型 & 与gemini/Siliconflow兼容度 & 功能多样性 & 易用性 \\
+模型 & 兼容度 & 功能多样性 & 易用性 \\
 \midrule
 camel-ai & 低 & 高 & 较低 \\
 Google ADK & 较高 & 较高 & 较高 \\
@@ -245,15 +259,15 @@ OpenAI Agent SDK & 未知 & 低 & 较高 \\
 \bottomrule
 \end{tabular}
 \end{table}
-综合考虑最终选择了ADK作为代理框架。
+\textbf{注：}兼容度指“与Gemini/Siliconflow”的兼容度。
+虽然OpenAI的框架更容易上手\cite{key1}，但综合ADK对Web UI的支持和MCP等工具的支持，最终选择了ADK作为代理框架。
 
 最后，Vertex AI RAG Engine的选择主要与前面两项均选择了Google的技术有关。
 
 \subsection{其余工具链集成}
 \begin{itemize}
-    呃呃呃好像暂时并没有别的工具链
-    篮球专业知识库（规则手册/公众号/专业数据）
-    \item \textbf{检索工具}：Google Search + Vertex RAG混合检索（top\_k=5）
+    \item \textbf{数据库支持}：篮球专业知识库（规则手册/公众号/专业数据）
+    \item \textbf{检索工具}：Google\ Search + Vertex\ RAG混合检索（top\_k=5）
     \item \textbf{安全工具}：关键词黑名单+LLM内容审查双防护
     \item \textbf{结构化输出}：Pydantic模型强制校验（TrainingPlanOutput等）
 \end{itemize}
@@ -275,7 +289,7 @@ OpenAI Agent SDK & 未知 & 低 & 较高 \\
     \item \textbf{子代理系统}：
     \begin{enumerate}
         \item 知识检索代理：\texttt{basketball\_coach\_browser} 结合RAG进行搜索
-        \item 安全护栏代理：\texttt{safety\_input\_agent} 检测有害输入
+        \item 安全护栏代理：\texttt{safety\_input\_agent} 检测有害输入,使用Agent作为Gr
         \item 数据管理代理：\texttt{player\_data\_agent} 访问球员数据库
         \item 训练计划代理：\texttt{training\_planner} 为球员制定训练计划
         \item 策略制定代理：\texttt{basketball\_tactic\_maker} 为球队指定策略
@@ -284,7 +298,8 @@ OpenAI Agent SDK & 未知 & 低 & 较高 \\
 \end{enumerate}
 
 \subsection{prompt工程}
-以下设计均基于Google ADK提供的指导完成，实现了多代理协作的篮球教练系统。
+以下设计均基于Google ADK\cite{Google}提供的指导完成，实现了多代理协作的篮球教练系统。
+提示词优化过程参考了Prompt Engineering Guide\cite{key}。
 \begin{enumerate}
     \item \textbf{结构化输出控制}：使用Pydantic模型确保输出格式一致性
     \begin{enumerate}
@@ -295,20 +310,21 @@ OpenAI Agent SDK & 未知 & 低 & 较高 \\
     
     \item \textbf{安全机制设计}：
     \begin{enumerate}
-        \item 双重防护：根代理指令强制所有输入通过\texttt{safety\_input\_agent}
-        \item 动态检测：安全代理使用示例驱动策略识别有害内容
-        \item 关键词黑名单：\texttt{BLOCKED\_KEYWORD}拦截特定危险词汇
+        \item 双重防护：根代理提示词指令注入防护，并根代理指令强制所有输入通过\texttt{safety\_input\_agent}安全代理
+        \item 动态检测（第二重防护）：安全代理使用示例驱动策略识别有害内容
+        \item 关键词黑名单：调用Gemini\texttt{HarmBlock}功能拦截特定危险词汇
     \end{enumerate}
     \begin{lstlisting}[language=Python]
     # prompts.py
     basketball_coach_instruction = 
-        "一旦怀疑收到不合理输入，立即向safety_input_agent求助"
+        "一旦怀疑收到不合理输入，
+        立即向safety_input_agent求助"
     \end{lstlisting}
     
     \item \textbf{检索增强生成(RAG)}：
     \begin{enumerate}
         \item 配置：text-multilingual-embedding-002（google）、RagManaged vector store（向量数据库）、检索策略（不公开，应该与FAISS类似）
-        \item 专用篮球知识库：Vertex AI RAG实现语义检索()
+        \item 专用篮球知识库：Vertex AI RAG实现语义检索\cite{vertexrag2024}
         \item 混合搜索策略：Google Search与RAG检索互补
         \item 相似度阈值：\texttt{vector\_distance\_threshold=0.6}保证结果相关性
     \end{enumerate}
@@ -323,17 +339,17 @@ OpenAI Agent SDK & 未知 & 低 & 较高 \\
     \item \textbf{灵活调用子代理和工具}
     \begin{lstlisting}[language=Python]
         root_agent = Agent(
-    ...
+    ...,
     tools=[
-           FunctionTool(repeat_instruction),
-           FunctionTool(get_handbook_of),
-           FunctionTool(welcome_message),
-           AgentTool(safety_input_agent),
-           AgentTool(basketball_coach_browser),
-           AgentTool(player_data_recorder),
-           AgentTool(training_planner),
-           AgentTool(basketball_tactic_maker)
-           ]
+        FunctionTool(repeat_instruction),
+        FunctionTool(get_handbook_of),
+        FunctionTool(welcome_message),
+        AgentTool(safety_input_agent),
+        AgentTool(basketball_coach_browser),
+        AgentTool(player_data_recorder),
+        AgentTool(training_planner),
+        AgentTool(basketball_tactic_maker)
+    ]
 ) 
     \end{lstlisting}
 \end{enumerate}
@@ -451,10 +467,8 @@ Temperature & Top\_p & 准确性 (\%) & 相关性 (\%) & 多样性 \\
 
 \subsection{系统架构设计}
 
-\subsubsection{子代理之多代理系统}
-
+\subsubsection{多代理系统}
 根-子代理形成中心型多代理系统架构。每个子代理在设计上根据其委派之工作进行了特殊设计。特别的，以下子功能进行了多代理系统的构建：
-
 \begin{enumerate}
     \item 知识检索代理：四个代理组成，包括桥接代理、并行搜索代理、谷歌搜索代理、RAG搜索代理
     \item 视频处理代理：五个代理组成，与知识检索代理构成相似。
@@ -504,7 +518,8 @@ Temperature & Top\_p & 准确性 (\%) & 相关性 (\%) & 多样性 \\
 \begin{lstlisting}[language=Python]
 # 配置Vertex AI RAG
 ask_vertex_retrieval = VertexAiRagRetrieval(
-    rag_resources=[rag.RagResource(rag_corpus=RAG_CORPUS)],
+    rag_resources=
+    [rag.RagResource(rag_corpus=RAG_CORPUS)],
     similarity_top_k=5,  # 返回最相关的5个结果
     vector_distance_threshold=0.6  # 相似度阈值
 )
@@ -513,7 +528,7 @@ ask_vertex_retrieval = VertexAiRagRetrieval(
 \subsubsection{安全防护机制}
 双层级防护设计：
 \begin{enumerate}
-    \item \textbf{前置过滤}：关键词黑名单（BLOCKED\_KEYWORD）
+    \item \textbf{前置过滤}：gemini有害词汇过滤
     \item \textbf{动态检测}：安全代理分析输入意图
     \begin{lstlisting}[language=Python]
     safety_input_agent = Agent(
@@ -564,7 +579,7 @@ class TrainingPlanOutput(BaseModel):
 \centering
 \begin{tabular}{lccc}
 \toprule
-查询类型 & Gemini-1.5-Pro & Gemini-2.0-Flash & 优化效果 \\
+查询类型 & model1 & model2 & 优化效果 \\
 \midrule
 规则问答 & 2100 & 850 & 59.5\%↓ \\
 训练计划 & 3200 & 1200 & 62.5\%↓ \\
@@ -572,6 +587,8 @@ class TrainingPlanOutput(BaseModel):
 \bottomrule
 \end{tabular}
 \end{table}
+\newline
+\textbf{注：model1为Gemini-1.5-Pro,model2为Gemini-2.0-Flash}
 
 
 \begin{table}[h]
@@ -583,8 +600,8 @@ class TrainingPlanOutput(BaseModel):
 模型 & 多模态支持度 & 响应速度 & 费用 \\
 \midrule
 Gemini-2.5-Flash & 高 & 较快 & 免费 \\
-DeepSeek-R1 & 低 & 慢 & 课程API_KEY \\
-Qwen3-32B & 低 & 较快 & 课程API_KEY \\
+DeepSeek-R1 & 低 & 慢 & 课程提供 \\
+Qwen3-32B & 低 & 较快 & 课程提供\\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -601,19 +618,24 @@ Qwen3-32B & 低 & 较快 & 课程API_KEY \\
 
 \subsection{挑战与改进}
 \begin{enumerate}
-    \item \textbf{视频分析模块延迟}：因多模态处理复杂性，当前完成度仅40\%
+    \item \textbf{视频分析模块延迟和准确性}：因多模态处理复杂性，当前完成度仅40\%
     \begin{itemize}
-        \item 改进方向：集成MediaPipe动作识别模型
+        \item 改进方向：集成更专业的视频模型，如MediaPipe动作识别模型、PaddleDetection模型（并用篮球训练集微调）
     \end{itemize}
     
     \item \textbf{战术可视化局限}：HTML战术板缺乏交互性
     \begin{itemize}
-        \item 改进方向：迁移至Three.js 3D篮球场模型
+        \item 改进方向：进行更多的提示词工程处理，或迁移至Three.js 3D篮球场模型
     \end{itemize}
     
-    \item \textbf{实时数据集成缺失}：未连接NBA API实时数据
+    \item \textbf{实时数据集成缺失}：RAG语料库更新非自动化、未连接NBA API实时数据
     \begin{itemize}
-        \item 改进方向：增加BallDontLie API接口
+        \item 改进方向：增加BallDontLie API接口、用Browse AI之类添加对网页链接内容的自动化更新
+    \end{itemize}
+
+    \item \textbf{ADK WEB对客制化功能的限制}：战术板直接展示、视频直接上传等
+    \begin{itemize}
+        \item 改进方向：基于ADK WEB开源代码改进、或等待AG-UI支持ADK后撰写我们的GUI
     \end{itemize}
 \end{enumerate}
 
@@ -638,11 +660,41 @@ Qwen3-32B & 低 & 较快 & 课程API_KEY \\
 \appendix
 \onecolumn
 \section{附录}
-
-可以将一些额外的内容放在这里
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\subsection{github链接}
+\href{https://github.com/LHS183019/AIBasicFinalProject.git}{仓库地址}
+\subsection{模型架构图}
+\begin{figure}[htbp]
+    \centering % 图片居中
+    \includegraphics[width=1.0\textwidth]{struct.png} % 图片路径和宽度
+    \caption{模型架构图} % 标题
+\end{figure}
+\subsection{分工表}
+\begin{enumerate}
+    \item 韩秉辰
+    \begin{itemize}
+        \item 维护Vertex RAG Engine内容，上传相关资料
+        \item 用户的本地球员资料库设计以及管理资料库的Agent的开发
+        \item 训练计划以及策略制定的Agent开发
+    \end{itemize}
+    \item 许诗雅
+    \begin{itemize}
+        \item 应用与技术选型
+        \item Agent架构设计图
+        \item Vertex AI RAG Engine服务搭建与key分配
+        \item search、tactic、video子代理
+        \item 多模态集成
+        \item 大模型安全
+        \item github repo维护
+    \end{itemize}
+    \item 丁语瞳
+    \begin{itemize}
+        \item 根代理与子代理的提示词工程与提示词调优
+        \item 参数调优与结构化输入输出设计
+        \item 进行相关实验，完成技术报告
+    \end{itemize}
+\end{enumerate}
 
 \end{document}
 
