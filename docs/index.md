@@ -2,6 +2,8 @@
 
 ## 还在维护中！将尽快完善
 
+* [演示&讲解视频](https://www.bilibili.com/video/BV1bvKrzwE2g/?share_source=copy_web&vd_source=128df80febd7972909ce93d6aa205f07)
+
 ## ADK WEB 的使用方式
 + 可以透过adk web右上角的export来保留对话记录
 + 可以透过session tab来查看历史对话
